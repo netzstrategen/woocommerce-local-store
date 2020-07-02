@@ -1,3 +1,7 @@
+
+# Configs.
+config.json
+
 # Git artifacts
 .idea/
 .well-known/

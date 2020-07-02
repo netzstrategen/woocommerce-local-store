@@ -27,6 +27,10 @@ class Plugin {
    * @implements init
    */
   public static function init() {
+    // Saves custom product meta fields.
+    add_action('woocommerce_process_product_meta', __NAMESPACE__ . '\Product::woocommerce_process_product_meta');
+    add_action('woocommerce_save_product_variation', __NAMESPACE__ . '\Product::woocommerce_save_product_variation', 10, 2);
+
     if (is_admin()) {
       return;
     }
@@ -47,6 +51,16 @@ class Plugin {
         </div>
       <?php
     }
+  }
+
+  /**
+   * The absolute filesystem base path of this plugin.
+   *
+   * @return string
+   *   The plugin absolute filesystem base path.
+   */
+  public static function getBasePath() {
+    return dirname(__DIR__);
   }
 
   /**
