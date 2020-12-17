@@ -12,14 +12,14 @@ class Config {
    *
    * @var string
    */
-  const CONFIG_FILE = '/config.json';
+  const CONFIG_FILE = '.woocommerce-multi-stock.json';
 
   /**
-   * Cache expiration time.
+   * Static cache of configuration.
    *
-   * @var int
+   * @var array
    */
-  const CACHE_DURATION = 43200;
+  private static $cache;
 
   /**
    * Returns the plugin configurations.
@@ -30,36 +30,22 @@ class Config {
    * @return array
    *   The plugin configurations.
    */
-  public static function get($key = '') {
-    try {
-      $transient_id = Plugin::PREFIX . '_config';
-      if ($transient = get_transient($transient_id)) {
-        $json_data = $transient;
-      }
-      else {
+  public static function get($key = NULL) {
+    if (!isset(static::$cache)) {
+      try {
         $data = static::readDataFile(self::CONFIG_FILE);
-        $json_data = json_decode($data, TRUE);
-        if (is_null($json_data)) {
-          throw new \Exception("Error: could not decode the config file.");
+        if (!static::$cache = json_decode($data, TRUE)) {
+          throw new \Exception('Unable to decode the configuration.');
         }
-        set_transient($transient_id, $json_data, static::CACHE_DURATION);
       }
-
-      if (!$key) {
-        $config = $json_data;
+      catch (\Throwable $e) {
+        trigger_error($e, E_USER_ERROR);
       }
-      elseif (isset($json_data[$key])) {
-        $config = $json_data[$key];
-      }
-      else {
-        $config = [];
-      }
-
-      return $config;
     }
-    catch (\Exception $error) {
-      trigger_error($error, E_USER_ERROR);
+    if ($key !== NULL) {
+      return static::$cache[$key];
     }
+    return static::$cache;
   }
 
   /**
@@ -72,13 +58,11 @@ class Config {
    *   Data file contents
    */
   protected static function readDataFile(string $path): string {
-    $str = @file_get_contents(Plugin::getBasePath() . $path);
-    if ($str === FALSE) {
-      throw new \Exception("Error: could not read file '$path'.");
+    $path = ABSPATH . $path;
+    if (!file_exists($path) || !$str = file_get_contents($path)) {
+      throw new \Exception("Unable to read file '$path'.");
     }
-    else {
-      return $str;
-    }
+    return $str;
   }
 
 }

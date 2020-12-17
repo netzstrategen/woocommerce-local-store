@@ -33,11 +33,13 @@ class Product {
    *   Prefix used to identify the fields.
    */
   protected static function renderSimpleProductsCustomFields($fields, $sectionTitle, $fieldsIdPrefix) {
-    echo '<div class="options_group show_if_simple show_if_external">';
+    echo '<div class="options_group">';
     echo '<h3 style="padding-left: 10px;">' . $sectionTitle . '</h3>';
     foreach ($fields as $field) {
       woocommerce_wp_text_input([
         'id' => sprintf('_%s_%s_%s', Plugin::PREFIX, $fieldsIdPrefix, $field['id']),
+        'data_type' => 'stock',
+        'type' => 'number',
         'label' => $field['name'],
       ]);
     }
@@ -81,6 +83,8 @@ class Product {
       woocommerce_wp_text_input([
         'wrapper_class' => 'form-row',
         'id' => $fieldId . '[' . $loop . ']',
+        'data_type' => 'stock',
+        'type' => 'number',
         'label' => $field['name'],
         'value' => get_post_meta($variationId, $fieldId, TRUE),
       ]);
@@ -117,7 +121,7 @@ class Product {
     foreach ($fields as $field) {
       $field = sprintf('_%s_%s_%s', Plugin::PREFIX, $fieldsIdPrefix, $field['id']);
       if (isset($_POST[$field])) {
-        if (!is_array($_POST[$field]) && $_POST[$field]) {
+        if (!is_array($_POST[$field]) && $_POST[$field] > 0) {
           update_post_meta($postId, $field, $_POST[$field]);
         }
         else {
@@ -164,7 +168,7 @@ class Product {
       $field = sprintf('_%s_%s_%s', Plugin::PREFIX, $fieldsIdPrefix, $field['id']);
       if (isset($_POST[$field])) {
         if ($_POST[$field][$loop]) {
-          update_post_meta($variationId, $field, $_POST[$field][$loop]);
+          update_post_meta($variationId, $field, $_POST[$field][$loop] > 0);
         }
         else {
           delete_post_meta($variationId, $field);
