@@ -22,30 +22,41 @@ class Config {
   private static $cache;
 
   /**
-   * Returns the plugin configurations.
-   *
-   * @param string $key
-   *   The configuration JSON key to return.
-   *
-   * @return array
-   *   The plugin configurations.
+   * Returns configuration of stores.
    */
-  public static function get($key = NULL) {
+  public static function get(?string $store_id = NULL): array {
     if (!isset(static::$cache)) {
       try {
         $data = static::readDataFile(self::CONFIG_FILE);
         if (!static::$cache = json_decode($data, TRUE)) {
           throw new \Exception('Unable to decode the configuration.');
         }
+        foreach (static::$cache as $id => $store_config) {
+          static::$cache[$id]['id'] = $id;
+        }
       }
       catch (\Throwable $e) {
         trigger_error($e, E_USER_ERROR);
       }
     }
-    if ($key !== NULL) {
-      return static::$cache[$key];
+    if ($store_id !== NULL) {
+      return static::$cache[$store_id];
     }
     return static::$cache;
+  }
+
+  public static function getAllStoreIds(): array {
+    return array_keys(Config::get());
+  }
+
+  public static function getStoreIdsByType(string $type): array {
+    $ids = [];
+    foreach (Config::get() as $id => $store_config) {
+      if ($store_config['type'] === $type) {
+        $ids[] = $id;
+      }
+    }
+    return $ids;
   }
 
   /**
@@ -57,7 +68,7 @@ class Config {
    * @return string
    *   Data file contents
    */
-  protected static function readDataFile(string $path): string {
+  private static function readDataFile(string $path): string {
     $path = ABSPATH . $path;
     if (!file_exists($path) || !$str = file_get_contents($path)) {
       throw new \Exception("Unable to read file '$path'.");

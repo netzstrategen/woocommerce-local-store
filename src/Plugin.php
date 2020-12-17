@@ -27,29 +27,12 @@ class Plugin {
    * @implements init
    */
   public static function init() {
-    // Saves custom product meta fields.
+    // Adds stock fields to product meta fields.
     add_action('woocommerce_process_product_meta', __NAMESPACE__ . '\Product::woocommerce_process_product_meta');
     add_action('woocommerce_save_product_variation', __NAMESPACE__ . '\Product::woocommerce_save_product_variation', 10, 2);
 
     if (is_admin()) {
       return;
-    }
-  }
-
-  /**
-   * Displays a notice if WooCommerce is not installed and active.
-   *
-   * @implements admin_notices
-   */
-  public static function admin_notices() {
-    if (!class_exists('WooCommerce')) {
-      ?>
-        <div class="error below-h3">
-          <p>
-            <strong><?= __('Multi Stock plugin requires WooCommerce to be installed and active.', Plugin::L10N); ?></strong>
-          </p>
-        </div>
-      <?php
     }
   }
 
