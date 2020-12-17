@@ -1,26 +1,22 @@
 {
-  "warehouses": [
-    {
-      "id": "L10",
-      "name": "Karlsruhe"
-    },
-    {
-      "id": "L20",
-      "name": "El Prat"
-    },
-    {
-      "id": "L30",
-      "name": "Bergamo"
-    }
-  ],
-  "showrooms": [
-    {
-      "id": "N01",
-      "name": "Paris"
-    },
-    {
-      "id": "N02",
-      "name": "Milan"
-    }
-  ]
+  "L10": {
+    "type": "warehouse",
+    "name": "Karlsruhe"
+  },
+  "L20": {
+    "type": "warehouse",
+    "name": "El Prat"
+  },
+  "L30": {
+    "type": "warehouse",
+    "name": "Bergamo"
+  },
+  "N01": {
+    "type": "showroom",
+    "name": "Paris"
+  },
+  "N02": {
+    "type": "showroom",
+    "name": "Milan"
+  }
 }
