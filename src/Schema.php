@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * Generic plugin lifetime and maintenance functionality.

@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * Plugin settings functionality.
@@ -12,7 +12,7 @@ class Config {
    *
    * @var string
    */
-  const CONFIG_FILE = '.woocommerce-multi-stock.json';
+  const CONFIG_FILE = '.woocommerce-local-store.json';
 
   /**
    * Static cache of configuration.

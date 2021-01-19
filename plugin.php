@@ -2,10 +2,10 @@
 
 // phpcs:disable
 /*
-  Plugin Name: Multi Stock
+  Plugin Name: WooCommerce Local Store
   Version: 1.0.0
-  Text Domain: multi-stock
-  Description: Manages product stocks in multiple locations.
+  Text Domain: woocommerce-local-store
+  Description: Manages product stocks in multiple local stores.
   Author: netzstrategen
   Author URI: https://netzstrategen.com
   License: GPL-2.0+
@@ -13,7 +13,7 @@
 */
 // phpcs:enable
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 if (!defined('ABSPATH')) {
   header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');

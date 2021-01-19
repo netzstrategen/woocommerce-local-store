@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * Main front-end functionality.
@@ -12,7 +12,7 @@ class Plugin {
    *
    * @var string
    */
-  const PREFIX = 'multi-stock';
+  const PREFIX = 'woocommerce-local-store';
 
   /**
    * Gettext localization domain.

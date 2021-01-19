@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * WooCommerce Product related functionalities.

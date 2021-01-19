@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * A store.
@@ -53,7 +53,7 @@ class Store {
   }
 
   private function getStockMetaKey() {
-    return '_multi-stock_' . $this->getId();
+    return '_local_store_' . $this->getId() . '_stock';
   }
 
   public function getId(): string {
