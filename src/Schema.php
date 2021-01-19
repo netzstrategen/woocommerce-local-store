@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * Generic plugin lifetime and maintenance functionality.
@@ -8,18 +8,21 @@ namespace Netzstrategen\MultiStock;
 class Schema {
 
   /**
-   * Registers activation hook callback.
+   * Callback for plugin activation.
    */
-  public static function activate() {}
+  public static function activate() {
+  }
 
   /**
-   * Registers deactivation hook callback.
+   * Callback for plugin deactivation.
    */
-  public static function deactivate() {}
+  public static function deactivate() {
+  }
 
   /**
-   * Registers uninstall hook callback.
+   * Callback for plugin uninstallation.
    */
-  public static function uninstall() {}
+  public static function uninstall() {
+  }
 
 }

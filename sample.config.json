@@ -1,0 +1,22 @@
+{
+  "L10": {
+    "type": "warehouse",
+    "name": "Karlsruhe"
+  },
+  "L20": {
+    "type": "warehouse",
+    "name": "El Prat"
+  },
+  "L30": {
+    "type": "warehouse",
+    "name": "Bergamo"
+  },
+  "N01": {
+    "type": "showroom",
+    "name": "Paris"
+  },
+  "N02": {
+    "type": "showroom",
+    "name": "Milan"
+  }
+}

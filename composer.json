@@ -1,17 +1,17 @@
 {
-  "name": "netzstrategen/multi-stock",
-  "description": "Manages product stocks in multiple locations.",
-  "license": "GPL-2.0-only",
+  "name": "netzstrategen/woocommerce-local-store",
+  "description": "Manages product stocks in multiple local stores.",
+  "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",
   "authors": [
       {
           "name": "netzstrategen",
-          "email": "hallo@netzstrategen.com",
+          "email": "hi@netzstrategen.com",
           "homepage": "https://netzstrategen.com"
       }
   ],
   "require": {
-      "php": ">=7.0.0",
+      "php": ">=7.3.0",
       "composer/installers": "^1"
   }
 }

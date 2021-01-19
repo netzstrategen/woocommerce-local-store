@@ -1,20 +1,20 @@
 {
-  "title": "multi-stock",
+  "title": "woocommerce-local-store",
   "version": "1.0.0",
-  "description": "Manages product stocks in multiple locations.",
+  "description": "Manages product stocks in multiple local stores.",
   "author": {
     "name": "netzstrategen",
-    "email": "hallo@netzstrategen.com"
+    "email": "hi@netzstrategen.com"
   },
   "homepage": "https://netzstrategen.com",
-  "license": "GPL-2.0",
+  "license": "GPL-2.0-or-later",
   "repository": {
     "type": "git",
-    "url": "git@github.com:netzstrategen/woocommerce-multi-stock.git"
+    "url": "git@github.com:netzstrategen/woocommerce-local-store.git"
   },
   "bugs": {
     "email": "tech@netzstrategen.com",
-    "url": "https://github.com/netzstrategen/woocommerce-multi-stock/issues"
+    "url": "https://github.com/netzstrategen/woocommerce-local-store/issues"
   },
   "scripts": {
     "serve": "gulp --production=true --concat=false",

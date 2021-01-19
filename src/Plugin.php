@@ -1,6 +1,6 @@
 <?php
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 /**
  * Main front-end functionality.
@@ -12,7 +12,7 @@ class Plugin {
    *
    * @var string
    */
-  const PREFIX = 'multi-stock';
+  const PREFIX = 'woocommerce-local-store';
 
   /**
    * Gettext localization domain.
@@ -27,26 +27,23 @@ class Plugin {
    * @implements init
    */
   public static function init() {
+    // Adds stock fields to product meta fields.
+    add_action('woocommerce_process_product_meta', __NAMESPACE__ . '\Product::woocommerce_process_product_meta');
+    add_action('woocommerce_save_product_variation', __NAMESPACE__ . '\Product::woocommerce_save_product_variation', 10, 2);
+
     if (is_admin()) {
       return;
     }
   }
 
   /**
-   * Displays a notice if WooCommerce is not installed and active.
+   * The absolute filesystem base path of this plugin.
    *
-   * @implements admin_notices
+   * @return string
+   *   The plugin absolute filesystem base path.
    */
-  public static function admin_notices() {
-    if (!class_exists('WooCommerce')) {
-      ?>
-        <div class="error below-h3">
-          <p>
-            <strong><?= __('Multi Stock plugin requires WooCommerce to be installed and active.', Plugin::L10N); ?></strong>
-          </p>
-        </div>
-      <?php
-    }
+  public static function getBasePath() {
+    return dirname(__DIR__);
   }
 
   /**

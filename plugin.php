@@ -2,10 +2,10 @@
 
 // phpcs:disable
 /*
-  Plugin Name: Multi Stock
+  Plugin Name: WooCommerce Local Store
   Version: 1.0.0
-  Text Domain: multi-stock
-  Description: Manages product stocks in multiple locations.
+  Text Domain: woocommerce-local-store
+  Description: Manages product stocks in multiple local stores.
   Author: netzstrategen
   Author URI: https://netzstrategen.com
   License: GPL-2.0+
@@ -13,7 +13,7 @@
 */
 // phpcs:enable
 
-namespace Netzstrategen\MultiStock;
+namespace Netzstrategen\WooCommerceLocalStore;
 
 if (!defined('ABSPATH')) {
   header($_SERVER['SERVER_PROTOCOL'] . ' 404 Not Found');
@@ -40,6 +40,5 @@ register_deactivation_hook(__FILE__, __NAMESPACE__ . '\Schema::deactivate');
 register_uninstall_hook(__FILE__, __NAMESPACE__ . '\Schema::uninstall');
 
 add_action('plugins_loaded', __NAMESPACE__ . '\Plugin::loadTextdomain');
-add_action('init', __NAMESPACE__ . '\Plugin::init', 20);
-// Displays a notice if woocommerce is not installed and active.
-add_action('admin_notices', __NAMESPACE__ . '\Plugin::admin_notices');
+add_action('admin_init', __NAMESPACE__ . '\Admin::init');
+add_action('init', __NAMESPACE__ . '\Plugin::init');
