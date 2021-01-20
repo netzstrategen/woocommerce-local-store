@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: woocommerce-local-store\n"
-"POT-Creation-Date: 2021-01-19 15:19+0100\n"
+"POT-Creation-Date: 2021-01-20 16:59+0100\n"
 "PO-Revision-Date: 2015-06-18 14:18+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,3 +17,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: .sass-cache\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
+
+#: src/Product.php:17 src/Product.php:31
+msgid "Warehouse stock"
+msgstr ""
+
+#: src/Product.php:20 src/Product.php:34
+msgid "Stock in showrooms"
+msgstr ""
