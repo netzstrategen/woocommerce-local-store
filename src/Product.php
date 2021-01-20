@@ -52,7 +52,7 @@ class Product {
         'id' => sprintf('_%s_%s', Plugin::PREFIX, $store->getId()),
         'data_type' => 'stock',
         'type' => 'number',
-        'label' => $store->getName(),
+        'label' => sprintf('%s (%s)', $store->getName(), $store->getId()),
       ]);
     }
     echo '</div>';
@@ -81,7 +81,7 @@ class Product {
         'id' => $fieldId . '[' . $loop . ']',
         'data_type' => 'stock',
         'type' => 'number',
-        'label' => $store->getName(),
+        'label' => sprintf('%s (%s)', $store->getName(), $store->getId()),
         'value' => $store->getStock($variation_id),
       ]);
     }
