@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: woocommerce-local-store\n"
-"POT-Creation-Date: 2021-01-19 15:19+0100\n"
-"PO-Revision-Date: 2021-01-19 15:20+0100\n"
+"POT-Creation-Date: 2021-01-20 16:59+0100\n"
+"PO-Revision-Date: 2021-01-20 16:59+0100\n"
 "Last-Translator: Daniel Kudwien <daniel@netzstrategen.com>\n"
 "Language-Team: netzstrategen\n"
 "Language: de_DE\n"
@@ -20,3 +20,11 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: node_modules\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: .sass-cache\n"
+
+#: src/Product.php:17 src/Product.php:31
+msgid "Warehouse stock"
+msgstr "Lagerbestand"
+
+#: src/Product.php:20 src/Product.php:34
+msgid "Stock in showrooms"
+msgstr "Bestand in Ausstellungen"

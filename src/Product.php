@@ -14,10 +14,10 @@ class Product {
    */
   public static function woocommerce_product_options_stock_fields() {
     if ($warehouses = Config::getStoreIdsByType('warehouse')) {
-      static::renderSimpleProductsCustomFields($warehouses, 'Warehouses');
+      static::renderSimpleProductsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N));
     }
     if ($showrooms = Config::getStoreIdsByType('showroom')) {
-      static::renderSimpleProductsCustomFields($showrooms, 'Showrooms');
+      static::renderSimpleProductsCustomFields($showrooms, __('Stock in showrooms', Plugin::L10N));
     }
   }
 
@@ -28,10 +28,10 @@ class Product {
    */
   public static function woocommerce_product_after_variable_attributes(int $loop, $variation_data, $variation) {
     if ($warehouses = Config::getStoreIdsByType('warehouse')) {
-      static::renderProductVariationsCustomFields($warehouses, 'Warehouses', $loop, $variation->ID);
+      static::renderProductVariationsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N), $loop, $variation->ID);
     }
     if ($showrooms = Config::getStoreIdsByType('showroom')) {
-      static::renderProductVariationsCustomFields($showrooms, 'Showrooms', $loop, $variation->ID);
+      static::renderProductVariationsCustomFields($showrooms, __('Stock in showrooms', Plugin::L10N), $loop, $variation->ID);
     }
   }
 
@@ -52,7 +52,7 @@ class Product {
         'id' => sprintf('_%s_%s', Plugin::PREFIX, $store->getId()),
         'data_type' => 'stock',
         'type' => 'number',
-        'label' => $store->getName(),
+        'label' => sprintf('%s (%s)', $store->getName(), $store->getId()),
       ]);
     }
     echo '</div>';
@@ -81,7 +81,7 @@ class Product {
         'id' => $fieldId . '[' . $loop . ']',
         'data_type' => 'stock',
         'type' => 'number',
-        'label' => $store->getName(),
+        'label' => sprintf('%s (%s)', $store->getName(), $store->getId()),
         'value' => $store->getStock($variation_id),
       ]);
     }
