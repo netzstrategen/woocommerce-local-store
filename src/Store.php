@@ -33,6 +33,9 @@ class Store {
       $product_id = $product_id->get_id();
     }
     $value = get_post_meta($product_id, $this->getStockMetaKey(), TRUE);
+    if (empty($value)) {
+      $value = 0;
+    }
     return $value;
   }
 
