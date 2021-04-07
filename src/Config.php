@@ -59,16 +59,6 @@ class Config {
     return $ids;
   }
 
-  public static function getStoreIdsByName(string $name): array {
-    $ids = [];
-    foreach (Config::get() as $id => $store_config) {
-      if ($store_config['name'] === $name) {
-        $ids[] = $id;
-      }
-    }
-    return $ids;
-  }
-
   public static function getStoreIdsByNameAndType(string $name, string $type): array {
     $ids = [];
     foreach (Config::get() as $id => $store_config) {
