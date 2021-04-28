@@ -53,6 +53,7 @@ class Product {
         'data_type' => 'stock',
         'type' => 'number',
         'label' => sprintf('%s (%s)', $store->getName(), $store->getId()),
+        'value' => $store->getStock(get_the_ID()),
       ]);
     }
     echo '</div>';
