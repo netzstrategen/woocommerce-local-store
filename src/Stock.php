@@ -13,15 +13,18 @@ class Stock {
     // Set stock status.
     if ($stock_level > $low_stock_level) {
       $status = 'high';
+      $text = __('High stock', Plugin::L10N);
     }
     elseif ($stock_level <= 0) {
       $status = 'low';
+      $text = __('Low stock', Plugin::L10N);
     }
     else {
       $status = 'medium';
+      $text = __('Medium stock', Plugin::L10N);
     }
 
-    return '<span class="stock-level stock-level--' . $status . '"><span class="stock-level text">' . ucfirst($status) . ' stock</span></span>';
+    return '<span class="stock-level stock-level--' . $status . '"><span class="stock-level text">' . $text . '</span></span>';
 
   }
 
