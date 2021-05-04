@@ -24,7 +24,7 @@ class Stock {
       $text = __('Medium stock', Plugin::L10N);
     }
 
-    return '<span class="stock-level stock-level--' . $status . '"><span class="stock-level text">' . $text . '</span></span>';
+    return '<span class="stock-level stock-level--' . $status . '"><span class="description">' . $text . '</span></span>';
 
   }
 
