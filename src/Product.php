@@ -159,4 +159,32 @@ class Product {
     }
   }
 
+  /**
+   * Displays the shop stock-status component on the front-end.
+   */
+  public static function woocommerce_product_meta_start() {
+    global $product;
+    $args = [];
+    $stores = Config::get();
+    foreach ($stores as $store) {
+      $locations[] = $store['name'];
+      $types[] = $store['type'];
+    }
+    $args['locations'] = array_unique($locations);
+    $args['types'] = array_unique($types);
+    foreach ($args['locations'] as $location) {
+      foreach ($args['types'] as $type) {
+        $ids = Config::getStoreIdsByNameAndType($location, $type);
+        $stock = 0;
+        foreach ($ids as $id) {
+          $stock += Store::fromConfig($id)->getStock($product->get_id());
+        }
+        $args['stocks'][] = Stock::checkStoreStockStatus($stock);
+      }
+    }
+    Plugin::renderTemplate(['templates/store-stock.php'], [
+      'args' => $args,
+    ]);
+  }
+
 }
