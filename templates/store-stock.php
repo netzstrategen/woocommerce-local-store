@@ -19,15 +19,11 @@ namespace Netzstrategen\WooCommerceLocalStore;
     </thead>
     <tbody>
       <?php
-      $i = 0;
-      foreach ($locations as $location): ?>
+      foreach ($stocks as $location => $types): ?>
         <tr>
-          <th><?= $location; ?></th>
-          <?php foreach ($types as $type): ?>
-            <td>
-              <?= $stocks[$i]; ?>
-              <?php $i++ ?>
-            </td>
+          <th><?= $location ?></th>
+          <?php foreach ($types as $stock): ?>
+            <td><?= $stock ?></td>
           <?php endforeach; ?>
         </tr>
       <?php endforeach; ?>

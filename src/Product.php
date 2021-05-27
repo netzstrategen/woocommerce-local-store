@@ -164,25 +164,24 @@ class Product {
    */
   public static function woocommerce_product_meta_start() {
     global $product;
-    $args = [];
+    $product_id = $product->get_id();
+
     $stores = Config::get();
+    $stocks = [];
     foreach ($stores as $store) {
-      $locations[] = $store['name'];
-      $types[] = $store['type'];
+      if (!isset($stocks[$store['name']][$store['type']])) {
+        $stocks[$store['name']][$store['type']] = 0;
+      }
+      $stocks[$store['name']][$store['type']] += Store::fromConfig($store['id'])->getStock($product_id);
     }
-    $args['locations'] = array_unique($locations);
-    $args['types'] = array_unique($types);
-    foreach ($args['locations'] as $location) {
-      foreach ($args['types'] as $type) {
-        $ids = Config::getStoreIdsByNameAndType($location, $type);
-        $stock = 0;
-        foreach ($ids as $id) {
-          $stock += Store::fromConfig($id)->getStock($product->get_id());
-        }
-        $args['stocks'][] = Stock::renderStatus($product, $stock);
+    foreach ($stocks as $name => $types) {
+      foreach (['showroom', 'warehouse'] as $type) {
+        $stocks[$name][$type] = Stock::renderStatus($product, $stocks[$name][$type] ?? 0);
       }
     }
-    Plugin::renderTemplate(['templates/store-stock.php'], $args);
+    Plugin::renderTemplate(['templates/store-stock.php'], [
+      'stocks' => $stocks,
+    ]);
   }
 
 }
