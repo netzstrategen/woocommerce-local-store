@@ -160,16 +160,16 @@ class Product {
   }
 
   /**
-   * Displays the shop stock-status component on the front-end.
+   * Retrieves stock level information by store and type.
    */
-  public static function woocommerce_product_meta_start() {
-    global $product;
+  public static function getStockByStore(\WC_Product $product): array {
     $product_id = $product->get_id();
 
     $stores = Config::get();
     $stocks = [];
     foreach ($stores as $store) {
       if (!isset($stocks[$store['name']][$store['type']])) {
+        // Ensure stable column order to simplify template logic.
         $stocks += [$store['name'] => []];
         $stocks[$store['name']] += ['showroom' => 0, 'warehouse' => 0];
       }
@@ -177,10 +177,37 @@ class Product {
     }
     foreach ($stocks as $name => $types) {
       foreach ($types as $type => $stock) {
-        $stocks[$name][$type] = Stock::renderStatus($product, $stocks[$name][$type] ?? 0);
+        $stocks[$name][$type] = Stock::getLevel($product, $stocks[$name][$type] ?? 0);
+      }
+    }
+    return $stocks;
+  }
+
+  /**
+   * Adds stock information for local stores to variation data.
+   *
+   * @implements woocommerce_available_variation
+   */
+  public static function woocommerce_available_variation(array $variation_data, \WC_Product $parent, \WC_Product $variation): array {
+    $variation_data['stock_levels'] = static::getStockByStore($variation);
+    return $variation_data;
+  }
+
+  /**
+   * Displays the shop stock-status component on the front-end.
+   */
+  public static function woocommerce_product_meta_start() {
+    global $product;
+
+    $stocks = static::getStockByStore($product);
+    $raw = $stocks;
+    foreach ($stocks as $name => $types) {
+      foreach ($types as $type => $stock) {
+        $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type]);
       }
     }
     Plugin::renderTemplate(['templates/store-stock.php'], [
+      'raw' => $raw,
       'stocks' => $stocks,
     ]);
   }

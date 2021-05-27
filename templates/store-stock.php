@@ -9,7 +9,7 @@ namespace Netzstrategen\WooCommerceLocalStore;
     <span><?= __('View branch availability', Plugin::L10N); ?></span>
     <span class="arrow-ico" data-stock-arrow></span>
   </button>
-  <table class="stock-table__table" data-stock-table aria-visible="false">
+  <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" aria-visible="false">
     <thead>
       <tr>
         <th class="column-1">&nbsp;</th>
@@ -22,8 +22,8 @@ namespace Netzstrategen\WooCommerceLocalStore;
       foreach ($stocks as $location => $types): ?>
         <tr>
           <th><?= $location ?></th>
-          <?php foreach ($types as $stock): ?>
-            <td><?= $stock ?></td>
+          <?php foreach ($types as $type => $stock): ?>
+            <td data-location="<?= esc_attr($location) ?>" data-type="<?= $type ?>"><?= $stock ?></td>
           <?php endforeach; ?>
         </tr>
       <?php endforeach; ?>

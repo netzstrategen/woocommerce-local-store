@@ -4,24 +4,35 @@ namespace Netzstrategen\WooCommerceLocalStore;
 
 class Stock {
 
-  public static function renderStatus(\WC_Product $product, int $stock_level): string {
-    $low_stock_level = wc_get_low_stock_amount($product);
+  /**
+   * Returns the stock level for a given product.
+   */
+  public static function getLevel(\WC_Product $product, int $stock): string {
+    $low_stock_amount = wc_get_low_stock_amount($product);
 
-    if ($stock_level > $low_stock_level) {
-      $status = 'high';
+    if ($stock > $low_stock_amount) {
+      $level = 'high';
+    }
+    elseif ($stock <= 0) {
+      $level = 'none';
+    }
+    else {
+      $level = 'low';
+    }
+    return $level;
+  }
+
+  public static function renderLevel(string $stock_level): string {
+    if ($stock_level === 'high') {
       $text = __('High stock', Plugin::L10N);
     }
-    elseif ($stock_level <= 0) {
-      $status = 'none';
+    elseif ($stock_level === 'none') {
       $text = __('Not available', Plugin::L10N);
     }
     else {
-      $status = 'low';
       $text = __('Low stock', Plugin::L10N);
     }
-
-    return '<span class="stock-level stock-level--' . $status . '" title="' . $text . '"><span class="description">' . $text . '</span></span>';
-
+    return '<span class="stock-level stock-level--' . $stock_level . '" title="' . $text . '"><span class="description">' . $text . '</span></span>';
   }
 
 }
