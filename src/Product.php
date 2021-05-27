@@ -13,11 +13,11 @@ class Product {
    * @implements woocommerce_product_options_stock_fields
    */
   public static function woocommerce_product_options_stock_fields() {
-    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
-      static::renderSimpleProductsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N));
-    }
     if ($showrooms = Config::getStoreIdsByType('showroom')) {
       static::renderSimpleProductsCustomFields($showrooms, __('Stock in showrooms', Plugin::L10N));
+    }
+    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
+      static::renderSimpleProductsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N));
     }
   }
 
@@ -27,11 +27,11 @@ class Product {
    * @implements woocommerce_product_after_variable_attributes
    */
   public static function woocommerce_product_after_variable_attributes(int $loop, $variation_data, $variation) {
-    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
-      static::renderProductVariationsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N), $loop, $variation->ID);
-    }
     if ($showrooms = Config::getStoreIdsByType('showroom')) {
       static::renderProductVariationsCustomFields($showrooms, __('Stock in showrooms', Plugin::L10N), $loop, $variation->ID);
+    }
+    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
+      static::renderProductVariationsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N), $loop, $variation->ID);
     }
   }
 
