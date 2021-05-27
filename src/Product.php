@@ -170,12 +170,13 @@ class Product {
     $stocks = [];
     foreach ($stores as $store) {
       if (!isset($stocks[$store['name']][$store['type']])) {
-        $stocks[$store['name']][$store['type']] = 0;
+        $stocks += [$store['name'] => []];
+        $stocks[$store['name']] += ['showroom' => 0, 'warehouse' => 0];
       }
       $stocks[$store['name']][$store['type']] += Store::fromConfig($store['id'])->getStock($product_id);
     }
     foreach ($stocks as $name => $types) {
-      foreach (['showroom', 'warehouse'] as $type) {
+      foreach ($types as $type => $stock) {
         $stocks[$name][$type] = Stock::renderStatus($product, $stocks[$name][$type] ?? 0);
       }
     }
