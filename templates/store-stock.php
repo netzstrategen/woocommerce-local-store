@@ -19,7 +19,6 @@ namespace Netzstrategen\WooCommerceLocalStore;
     </thead>
     <tbody>
       <?php
-      extract($args);
       $i = 0;
       foreach ($locations as $location): ?>
         <tr>

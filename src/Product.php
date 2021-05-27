@@ -182,9 +182,7 @@ class Product {
         $args['stocks'][] = Stock::renderStatus($stock);
       }
     }
-    Plugin::renderTemplate(['templates/store-stock.php'], [
-      'args' => $args,
-    ]);
+    Plugin::renderTemplate(['templates/store-stock.php'], $args);
   }
 
 }
