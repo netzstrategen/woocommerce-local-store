@@ -1,15 +1,20 @@
+<?php
+
+namespace Netzstrategen\WooCommerceLocalStore;
+
+?>
 <div class="stock-table">
   <button class="stock-table__toggle" data-stock-table-toggle aria-expanded="false">
     <span class="map-ico"></span>
-    <span><?= __('View branch availability', 'shop'); ?></span>
+    <span><?= __('View branch availability', Plugin::L10N); ?></span>
     <span class="arrow-ico" data-stock-arrow></span>
   </button>
   <table class="stock-table__table" data-stock-table aria-visible="false">
     <thead>
       <tr>
-        <th class="column-1"></th>
-        <th class="column-2"><?= __('In Show Room', 'shop') ?></th>
-        <th class="column-3"><?= __('In Stock', 'shop') ?></th>
+        <th class="column-1">&nbsp;</th>
+        <th class="column-2"><?= __('In Show Room', Plugin::L10N) ?></th>
+        <th class="column-3"><?= __('In Stock', Plugin::L10N) ?></th>
       </tr>
     </thead>
     <tbody>

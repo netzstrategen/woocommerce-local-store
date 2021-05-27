@@ -4,13 +4,11 @@ namespace Netzstrategen\WooCommerceLocalStore;
 
 class Stock {
 
-  function checkStoreStockStatus($stock_level) {
+  public static function renderStatus(int $stock_level): string {
     global $woocommerce;
-    // Set threshold.
-    $low_stock_level = isset($woocommerce->low_stock_amount)
-      ? get_option('low_stock_amount')
-      : get_option('woocommerce_notify_low_stock_amount');
-    // Set stock status.
+
+    $low_stock_level = $woocommerce->low_stock_amount ?? get_option('woocommerce_notify_low_stock_amount');
+
     if ($stock_level > $low_stock_level) {
       $status = 'high';
       $text = __('High stock', Plugin::L10N);

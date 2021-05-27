@@ -179,7 +179,7 @@ class Product {
         foreach ($ids as $id) {
           $stock += Store::fromConfig($id)->getStock($product->get_id());
         }
-        $args['stocks'][] = Stock::checkStoreStockStatus($stock);
+        $args['stocks'][] = Stock::renderStatus($stock);
       }
     }
     Plugin::renderTemplate(['templates/store-stock.php'], [
