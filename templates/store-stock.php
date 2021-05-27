@@ -13,8 +13,8 @@ namespace Netzstrategen\WooCommerceLocalStore;
     <thead>
       <tr>
         <th class="column-1">&nbsp;</th>
-        <th class="column-2"><?= __('In Show Room', Plugin::L10N) ?></th>
-        <th class="column-3"><?= __('In Stock', Plugin::L10N) ?></th>
+        <th class="column-2"><?= __('in showroom', Plugin::L10N) ?></th>
+        <th class="column-3"><?= __('in stock', Plugin::L10N) ?></th>
       </tr>
     </thead>
     <tbody>

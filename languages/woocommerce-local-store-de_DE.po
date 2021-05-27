@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: woocommerce-local-store\n"
-"POT-Creation-Date: 2021-05-04 18:36+0200\n"
-"PO-Revision-Date: 2021-05-04 18:43+0200\n"
-"Last-Translator: Mauricio Urrego <mauricio@netzstrategen.com>\n"
+"POT-Creation-Date: 2021-05-27 15:54+0200\n"
+"PO-Revision-Date: 2021-05-27 15:55+0200\n"
+"Last-Translator: Daniel Kudwien <daniel@netzstrategen.com>\n"
 "Language-Team: \n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Generator: Poedit 2.4.2\n"
 "X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -21,26 +21,35 @@ msgstr "Lagerbestand"
 msgid "Stock in showrooms"
 msgstr "Bestand in Ausstellungen"
 
-#: src/Stock.php:16
+#: src/Stock.php:12
 msgid "High stock"
 msgstr "Hoher Lagerbestand"
+
+#: src/Stock.php:16
+msgid "Not available"
+msgstr "Nicht verfügbar"
 
 #: src/Stock.php:20
 msgid "Low stock"
 msgstr "Geringe Lagermenge"
 
-#: src/Stock.php:24
-msgid "Medium stock"
-msgstr "Mittlerer Lagerbestand"
-
-#: templates/store-stock.php:4
+#: templates/store-stock.php:9
 msgid "View branch availability"
 msgstr "Filialverfügbarkeit ansehen"
 
-#: templates/store-stock.php:11
-msgid "In Show Room"
+#: templates/store-stock.php:16
+msgid "in showroom"
 msgstr "in der Ausstellung"
 
-#: templates/store-stock.php:12
-msgid "In Stock"
+#: templates/store-stock.php:17
+msgid "in stock"
 msgstr "ab Lager"
+
+#~ msgid "In Show Room"
+#~ msgstr "in der Ausstellung"
+
+#~ msgid "In Stock"
+#~ msgstr "ab Lager"
+
+#~ msgid "Medium stock"
+#~ msgstr "Mittlerer Lagerbestand"

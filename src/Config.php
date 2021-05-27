@@ -22,6 +22,13 @@ class Config {
   private static $cache;
 
   /**
+   * Static cache of configured stores.
+   *
+   * @var array
+   */
+  private static $stores;
+
+  /**
    * Returns configuration of stores.
    */
   public static function get(?string $store_id = NULL): array {
@@ -31,8 +38,12 @@ class Config {
         if (!static::$cache = json_decode($data, TRUE)) {
           throw new \Exception('Unable to decode the configuration.');
         }
-        foreach (static::$cache as $id => $store_config) {
-          static::$cache[$id]['id'] = $id;
+        foreach (static::$cache as $location_name => $location) {
+          foreach ($location['stores'] as $id => $store_config) {
+            $store_config['id'] = $id;
+            $store_config['name'] = $location['name'];
+            static::$stores[$id] = $store_config;
+          }
         }
       }
       catch (\Throwable $e) {
@@ -40,9 +51,9 @@ class Config {
       }
     }
     if ($store_id !== NULL) {
-      return static::$cache[$store_id];
+      return static::$stores[$store_id];
     }
-    return static::$cache;
+    return static::$stores;
   }
 
   public static function getAllStoreIds(): array {
