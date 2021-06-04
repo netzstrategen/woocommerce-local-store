@@ -22,15 +22,18 @@ class Stock {
     return $level;
   }
 
-  public static function renderLevel(string $stock_level): string {
+  public static function renderLevel(string $stock_level, string $type): string {
     if ($stock_level === 'high') {
       $text = __('High stock', Plugin::L10N);
     }
     elseif ($stock_level === 'none') {
       $text = __('Not available', Plugin::L10N);
     }
-    else {
+    elseif ($stock_level === 'low' && $type === 'warehouse') {
       $text = __('Low stock', Plugin::L10N);
+    }
+    else {
+      $text = __('Not available', Plugin::L10N);
     }
     return '<span class="stock-level stock-level--' . $stock_level . '" title="' . $text . '"><span class="description">' . $text . '</span></span>';
   }

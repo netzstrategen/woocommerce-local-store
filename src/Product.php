@@ -203,7 +203,7 @@ class Product {
     $raw = $stocks;
     foreach ($stocks as $name => $types) {
       foreach ($types as $type => $stock) {
-        $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type]);
+        $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type], $type);
       }
     }
     Plugin::renderTemplate(['templates/store-stock.php'], [
