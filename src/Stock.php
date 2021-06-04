@@ -33,6 +33,7 @@ class Stock {
       $text = __('Low stock', Plugin::L10N);
     }
     else {
+      $stock_level = 'none';
       $text = __('Not available', Plugin::L10N);
     }
     return '<span class="stock-level stock-level--' . $stock_level . '" title="' . (($type === 'warehouse') ? $text : '') . '"><span class="description">' . $text . '</span></span>';
