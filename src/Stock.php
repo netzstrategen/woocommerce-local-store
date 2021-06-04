@@ -35,7 +35,7 @@ class Stock {
     else {
       $text = __('Not available', Plugin::L10N);
     }
-    return '<span class="stock-level stock-level--' . $stock_level . '" title="' . $text . '"><span class="description">' . $text . '</span></span>';
+    return '<span class="stock-level stock-level--' . $stock_level . '"><span class="description">' . $text . '</span></span>';
   }
 
 }
