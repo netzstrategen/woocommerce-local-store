@@ -47,5 +47,5 @@ msgid "in showroom"
 msgstr ""
 
 #: templates/store-stock.php:17
-msgid "in stock"
+msgid "available for pick up"
 msgstr ""
