@@ -3,7 +3,7 @@
 namespace Netzstrategen\WooCommerceLocalStore;
 
 ?>
-<div class="stock-table">
+<div class="stock-table" data-stock-show>
   <button class="stock-table__toggle" data-stock-table-toggle aria-expanded="false">
     <span class="map-ico"></span>
     <span><?= __('View branch availability', Plugin::L10N); ?></span>

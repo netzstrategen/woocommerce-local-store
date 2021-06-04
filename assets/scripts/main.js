@@ -56,3 +56,22 @@ window.addEventListener('load', () => {
       updateStockLevels($context, $('[data-stock-table]', $context).data('stock-table'));
     });
 }(jQuery));
+
+/* global jQuery */
+(function ($) {
+  const html = document.querySelector('html');
+  const productType = html.getAttribute('data-page-type');
+
+  if (productType === 'Product | Variable') {
+    /* global document */
+    $(document)
+      .on('show_variation', '.single_variation_wrap', function (event, variation) {
+        const stockTable = document.querySelector('[data-stock-show]');
+        stockTable.classList.toggle('hide');
+      })
+      .on('hide_variation, reset_data', function (event) {
+        const stockTable = document.querySelector('[data-stock-show]');
+        stockTable.classList.toggle('hide');
+      });
+  }
+}(jQuery));
