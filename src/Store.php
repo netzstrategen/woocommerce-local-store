@@ -37,6 +37,10 @@ class Store {
   }
 
   public function setStock($product_id, int $value): self {
+    $current_stock = $this->getStock($product_id);
+    if ($current_stock === $value) {
+      return $this;
+    }
     if ($product_id instanceof \WC_Product) {
       $product_id = $product_id->get_id();
     }
