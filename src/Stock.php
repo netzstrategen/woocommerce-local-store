@@ -26,9 +26,6 @@ class Stock {
     if ($stock_level === 'high') {
       $text = __('High stock', Plugin::L10N);
     }
-    elseif ($stock_level === 'none') {
-      $text = __('Not available', Plugin::L10N);
-    }
     elseif ($stock_level === 'low' && $type === 'warehouse') {
       $text = __('Low stock', Plugin::L10N);
     }
