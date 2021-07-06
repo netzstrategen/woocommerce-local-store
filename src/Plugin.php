@@ -35,12 +35,16 @@ class Plugin {
     // Adds stock fields to product meta fields.
     add_action('woocommerce_process_product_meta', __NAMESPACE__ . '\Product::woocommerce_process_product_meta');
     add_action('woocommerce_save_product_variation', __NAMESPACE__ . '\Product::woocommerce_save_product_variation', 10, 2);
-#    add_action('woocommerce_product_meta_start', __NAMESPACE__ . '\Product::woocommerce_product_meta_start');
+
     if (is_admin()) {
       return;
     }
+
+    add_filter('woocommerce_available_variation', __NAMESPACE__ . '\Product::woocommerce_available_variation', 10, 3);
+    add_action('woocommerce_product_meta_start', __NAMESPACE__ . '\Product::woocommerce_product_meta_start');
+
     // Enqueues styles and scripts.
-#    add_action('wp_enqueue_scripts', __CLASS__ . '::enqueueAssets', 100);
+    add_action('wp_enqueue_scripts', __CLASS__ . '::enqueueAssets', 100);
   }
 
   /**

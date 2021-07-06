@@ -1,10 +1,15 @@
 .stock-table {
+  display: block;
   margin-top: 12.5px;
   margin-bottom: 12.5px;
   border-top: solid 1px #dcdcdc;
   border-bottom: solid 1px #dcdcdc;
   padding-top: 25px;
   padding-bottom: 25px;
+
+  &.hide {
+    display: none;
+  }
 
   .stock-table__toggle {
     border: 0;
