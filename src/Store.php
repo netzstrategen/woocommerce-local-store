@@ -32,7 +32,7 @@ class Store {
     if ($product_id instanceof \WC_Product) {
       $product_id = $product_id->get_id();
     }
-    $value = get_post_meta($product_id, $this->getStockMetaKey(), TRUE);
+    $value = get_post_meta($product_id, $this->getStockMetaKey(), TRUE) ?: 0;
     return $value;
   }
 

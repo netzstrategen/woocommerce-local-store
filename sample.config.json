@@ -1,22 +1,49 @@
 {
-  "L10": {
-    "type": "warehouse",
-    "name": "Karlsruhe"
+  "lauchringen": {
+    "name": "Lauchringen",
+    "stores": {
+      "L110": {
+        "type": "warehouse"
+      },
+      "L112": {
+        "type": "warehouse"
+      },
+      "N43": {
+        "type": "showroom"
+      }
+    }
   },
-  "L20": {
-    "type": "warehouse",
-    "name": "El Prat"
+  "stockach": {
+    "name": "Stockach",
+    "stores": {
+      "L200": {
+        "type": "warehouse"
+      },
+      "L250": {
+        "type": "warehouse"
+      },
+      "N44": {
+        "type": "showroom"
+      }
+    }
   },
-  "L30": {
-    "type": "warehouse",
-    "name": "Bergamo"
+  "karlsruhe": {
+    "name": "Karlsruhe",
+    "stores": {
+      "L400": {
+        "type": "warehouse"
+      },
+      "N41": {
+        "type": "showroom"
+      }
+    }
   },
-  "N01": {
-    "type": "showroom",
-    "name": "Paris"
-  },
-  "N02": {
-    "type": "showroom",
-    "name": "Milan"
+  "weilamrhein": {
+    "name": "Weil am Rhein",
+    "stores": {
+      "N45": {
+        "type": "showroom"
+      }
+    }
   }
 }

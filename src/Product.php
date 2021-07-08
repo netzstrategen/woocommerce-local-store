@@ -13,11 +13,11 @@ class Product {
    * @implements woocommerce_product_options_stock_fields
    */
   public static function woocommerce_product_options_stock_fields() {
-    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
-      static::renderSimpleProductsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N));
-    }
     if ($showrooms = Config::getStoreIdsByType('showroom')) {
       static::renderSimpleProductsCustomFields($showrooms, __('Stock in showrooms', Plugin::L10N));
+    }
+    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
+      static::renderSimpleProductsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N));
     }
   }
 
@@ -27,11 +27,11 @@ class Product {
    * @implements woocommerce_product_after_variable_attributes
    */
   public static function woocommerce_product_after_variable_attributes(int $loop, $variation_data, $variation) {
-    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
-      static::renderProductVariationsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N), $loop, $variation->ID);
-    }
     if ($showrooms = Config::getStoreIdsByType('showroom')) {
       static::renderProductVariationsCustomFields($showrooms, __('Stock in showrooms', Plugin::L10N), $loop, $variation->ID);
+    }
+    if ($warehouses = Config::getStoreIdsByType('warehouse')) {
+      static::renderProductVariationsCustomFields($warehouses, __('Warehouse stock', Plugin::L10N), $loop, $variation->ID);
     }
   }
 
@@ -53,6 +53,7 @@ class Product {
         'data_type' => 'stock',
         'type' => 'number',
         'label' => sprintf('%s (%s)', $store->getName(), $store->getId()),
+        'value' => $store->getStock(get_the_ID()),
       ]);
     }
     echo '</div>';
@@ -156,6 +157,69 @@ class Product {
         }
       }
     }
+  }
+
+  /**
+   * Retrieves stock level information by store and type.
+   */
+  public static function getStockByStore(\WC_Product $product): array {
+    $product_id = $product->get_id();
+    $is_backorder_allowed = $product->backorders_allowed();
+
+    $stores = Config::get();
+    $stocks = [];
+    $warehouse_stock = 0;
+    foreach ($stores as $store) {
+      if (!isset($stocks[$store['name']][$store['type']])) {
+        // Ensure stable column order to simplify template logic.
+        $stocks += [$store['name'] => []];
+        $stocks[$store['name']] += ['showroom' => 0, 'warehouse' => 0];
+      }
+      $stock = Store::fromConfig($store['id'])->getStock($product_id);
+      $stocks[$store['name']][$store['type']] += $stock;
+      if ($store['type'] === 'warehouse') {
+        $warehouse_stock += $stock;
+      }
+    }
+    foreach ($stocks as $name => $types) {
+      foreach ($types as $type => $stock) {
+        $stocks[$name][$type] = Stock::getLevel($product, $stocks[$name][$type] ?? 0);
+      }
+    }
+    foreach ($stocks as $name => $types) {
+      $stocks[$name]['online'] = ($is_backorder_allowed || $warehouse_stock) ? 'high' : 'none';
+    }
+
+    return $stocks;
+  }
+
+  /**
+   * Adds stock information for local stores to variation data.
+   *
+   * @implements woocommerce_available_variation
+   */
+  public static function woocommerce_available_variation(array $variation_data, \WC_Product $parent, \WC_Product $variation): array {
+    $variation_data['stock_levels'] = static::getStockByStore($variation);
+    return $variation_data;
+  }
+
+  /**
+   * Displays the shop stock-status component on the front-end.
+   */
+  public static function woocommerce_product_meta_start() {
+    global $product;
+
+    $stocks = static::getStockByStore($product);
+    $raw = $stocks;
+    foreach ($stocks as $name => $types) {
+      foreach ($types as $type => $stock) {
+        $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type], $type);
+      }
+    }
+    Plugin::renderTemplate(['templates/store-stock.php'], [
+      'raw' => $raw,
+      'stocks' => $stocks,
+    ]);
   }
 
 }

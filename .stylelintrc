@@ -1,7 +1,7 @@
 {
   "plugins": [
     "stylelint-scss",
-    "stylelint-order",
+    "stylelint-order"
   ],
   "ignoreFiles": [
     "vendor/**/*",
@@ -113,7 +113,6 @@
     "selector-pseudo-element-case": "lower",
     "selector-pseudo-element-colon-notation": "single",
     "selector-pseudo-element-no-unknown": true,
-    "selector-no-qualifying-type": true,
     "selector-type-case": "lower",
     "selector-type-no-unknown": true,
 
