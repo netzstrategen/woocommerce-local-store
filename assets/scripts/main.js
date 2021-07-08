@@ -37,10 +37,13 @@ window.addEventListener('load', () => {
    * @param {array} stockLevels
    */
   function updateStockLevels($context, stockLevels) {
+    const $labels = $('[data-stock-table]');
     $.each(stockLevels, (name, types) => {
       $.each(types, (type, level) => {
         $('[data-location="' + name + '"][data-type="' + type + '"] > span')
-          .attr('class', 'stock-level stock-level--' + level);
+          .attr('class', 'stock-level stock-level--' + level)
+          .attr('title', $labels.attr('data-label-' + level))
+          .find('> .description').text($labels.attr('data-label-' + level));
       });
     });
   }

@@ -2,6 +2,12 @@
 
 namespace Netzstrategen\WooCommerceLocalStore;
 
+$labels = [
+  'data-label-high' => __('High stock', Plugin::L10N),
+  'data-label-low' => __('Low stock', Plugin::L10N),
+  'data-label-none' => __('Not available', Plugin::L10N),
+];
+
 ?>
 <div class="stock-table" data-stock-show>
   <button class="stock-table__toggle" data-stock-table-toggle aria-expanded="false">
@@ -9,7 +15,7 @@ namespace Netzstrategen\WooCommerceLocalStore;
     <span><?= __('View branch availability', Plugin::L10N); ?></span>
     <span class="arrow-ico" data-stock-arrow></span>
   </button>
-  <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" aria-visible="false">
+  <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" <?= wc_implode_html_attributes($labels) ?> aria-visible="false">
     <thead>
       <tr>
         <th class="column-1">&nbsp;</th>
