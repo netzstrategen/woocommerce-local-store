@@ -44,7 +44,20 @@ class Plugin {
     add_action('woocommerce_product_meta_start', __NAMESPACE__ . '\Product::woocommerce_product_meta_start');
 
     // Enqueues styles and scripts.
-    add_action('wp_enqueue_scripts', __CLASS__ . '::enqueueAssets', 100);
+    add_action('wp_enqueue_scripts', __CLASS__ . '::enqueueAssets');
+  }
+
+  /**
+   * Enqueues styles and scripts.
+   *
+   * @implements wp_enqueue_scripts
+   */
+  public static function enqueueAssets() {
+    if (!is_product()) {
+      return;
+    }
+    wp_enqueue_style('woocommerce-local-store/custom', static::getBaseUrl() . '/dist/styles/main.min.css', FALSE);
+    wp_enqueue_script('woocommerce-local-store/custom', static::getBaseUrl() . '/dist/scripts/main.min.js', ['jquery'], FALSE, TRUE);
   }
 
   /**
@@ -74,19 +87,6 @@ class Plugin {
    */
   public static function loadTextdomain() {
     load_plugin_textdomain(static::L10N, FALSE, static::L10N . '/languages/');
-  }
-
-  /**
-   * Enqueues styles and scripts.
-   *
-   * @implements wp_enqueue_scripts
-   */
-  public static function enqueueAssets() {
-    if (!is_product()) {
-      return;
-    }
-    wp_enqueue_style('woocommerce-local-store/custom', static::getBaseUrl() . '/dist/styles/main.min.css', FALSE);
-    wp_enqueue_script('woocommerce-local-store/custom', static::getBaseUrl() . '/dist/scripts/main.min.js', ['jquery'], FALSE, TRUE);
   }
 
   /**
