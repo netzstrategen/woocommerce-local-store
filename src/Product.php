@@ -164,22 +164,32 @@ class Product {
    */
   public static function getStockByStore(\WC_Product $product): array {
     $product_id = $product->get_id();
+    $is_backorder_allowed = $product->backorders_allowed();
 
     $stores = Config::get();
     $stocks = [];
+    $warehouse_stock = 0;
     foreach ($stores as $store) {
       if (!isset($stocks[$store['name']][$store['type']])) {
         // Ensure stable column order to simplify template logic.
         $stocks += [$store['name'] => []];
         $stocks[$store['name']] += ['showroom' => 0, 'warehouse' => 0];
       }
-      $stocks[$store['name']][$store['type']] += Store::fromConfig($store['id'])->getStock($product_id);
+      $stock = Store::fromConfig($store['id'])->getStock($product_id);
+      $stocks[$store['name']][$store['type']] += $stock;
+      if ($store['type'] === 'warehouse') {
+        $warehouse_stock += $stock;
+      }
     }
     foreach ($stocks as $name => $types) {
       foreach ($types as $type => $stock) {
         $stocks[$name][$type] = Stock::getLevel($product, $stocks[$name][$type] ?? 0);
       }
     }
+    foreach ($stocks as $name => $types) {
+      $stocks[$name]['online'] = ($is_backorder_allowed || $warehouse_stock) ? 'high' : 'none';
+    }
+
     return $stocks;
   }
 

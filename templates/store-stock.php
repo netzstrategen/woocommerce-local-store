@@ -15,6 +15,7 @@ namespace Netzstrategen\WooCommerceLocalStore;
         <th class="column-1">&nbsp;</th>
         <th class="column-2"><?= __('in showroom', Plugin::L10N) ?></th>
         <th class="column-3"><?= __('available for pick up', Plugin::L10N) ?></th>
+        <th class="column-4"><?= __('orderable', Plugin::L10N) ?></th>
       </tr>
     </thead>
     <tbody>

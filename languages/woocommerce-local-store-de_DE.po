@@ -45,6 +45,10 @@ msgstr "in der Ausstellung"
 msgid "available for pick up"
 msgstr "Sofortmitnahme"
 
+#: templates/store-stock.php:17
+msgid "orderable"
+msgstr "Bestellung"
+
 #~ msgid "In Show Room"
 #~ msgstr "in der Ausstellung"
 
