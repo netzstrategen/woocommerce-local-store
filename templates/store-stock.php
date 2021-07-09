@@ -3,7 +3,7 @@
 namespace Netzstrategen\WooCommerceLocalStore;
 
 $labels = [
-  'data-label-high' => __('High stock', Plugin::L10N),
+  'data-label-high' => __('Available', Plugin::L10N),
   'data-label-low' => __('Low stock', Plugin::L10N),
   'data-label-none' => __('Not available', Plugin::L10N),
 ];

@@ -22,8 +22,8 @@ msgid "Stock in showrooms"
 msgstr "Bestand in Ausstellungen"
 
 #: src/Stock.php:12
-msgid "High stock"
-msgstr "Hoher Lagerbestand"
+msgid "Available"
+msgstr "Verfügbar"
 
 #: src/Stock.php:16
 msgid "Not available"

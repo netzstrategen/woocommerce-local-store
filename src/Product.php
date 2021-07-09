@@ -183,7 +183,7 @@ class Product {
     }
     foreach ($stocks as $name => $types) {
       foreach ($types as $type => $stock) {
-        $stocks[$name][$type] = Stock::getLevel($product, $stocks[$name][$type] ?? 0);
+        $stocks[$name][$type] = Stock::getLevel($product, $stocks[$name][$type] ?? 0, $type);
       }
     }
     foreach ($stocks as $name => $types) {
