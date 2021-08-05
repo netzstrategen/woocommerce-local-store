@@ -207,6 +207,10 @@ class Product {
    * Displays the shop stock-status component on the front-end.
    */
   public static function woocommerce_product_meta_start() {
+    if (get_the_terms(wc_get_product()->get_id(), 'product_cat')[0]->name === 'Ausstellungsstücke') {
+      return;
+    }
+
     global $product;
 
     $stocks = static::getStockByStore($product);
