@@ -39,15 +39,15 @@ msgstr "Filialverfügbarkeit ansehen"
 
 #: templates/store-stock.php:16
 msgid "in showroom"
-msgstr "in der Ausstellung"
+msgstr "Ausstellung"
 
 #: templates/store-stock.php:17
 msgid "available for pick up"
-msgstr "Sofortmitnahme"
+msgstr "Mitnahme"
 
 #: templates/store-stock.php:17
 msgid "orderable"
-msgstr "Bestellung"
+msgstr "Kauf"
 
 #~ msgid "In Show Room"
 #~ msgstr "in der Ausstellung"
