@@ -53,7 +53,7 @@ class Plugin {
    * @implements wp_enqueue_scripts
    */
   public static function enqueueAssets() {
-    if (!is_product() || get_the_terms(wc_get_product()->get_id(), 'product_cat')[0]->name === 'Ausstellungsstücke') {
+    if (!is_product() || has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
       return;
     }
 
