@@ -53,7 +53,11 @@ class Plugin {
    * @implements wp_enqueue_scripts
    */
   public static function enqueueAssets() {
-    if (!is_product() || has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
+    if (!is_product()) {
+      return;
+    }
+
+    if (has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
       return;
     }
 

@@ -209,7 +209,7 @@ class Product {
    * Displays the shop stock-status component on the front-end.
    */
   public static function woocommerce_product_meta_start() {
-    if (has_term(self::CATEGORY_EXCLUDED, 'product_cat')) {
+    if (has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
       return;
     }
 
