@@ -2,13 +2,13 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: woocommerce-local-store\n"
-"POT-Creation-Date: 2021-05-27 15:54+0200\n"
+"POT-Creation-Date: 2021-08-06 13:56+0200\n"
 "PO-Revision-Date: 2015-06-18 14:18+0100\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
@@ -19,33 +19,37 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
 
 #: src/Product.php:17 src/Product.php:31
-msgid "Warehouse stock"
-msgstr ""
-
-#: src/Product.php:20 src/Product.php:34
 msgid "Stock in showrooms"
 msgstr ""
 
-#: src/Stock.php:12
-msgid "High stock"
+#: src/Product.php:20 src/Product.php:34
+msgid "Warehouse stock"
 msgstr ""
 
-#: src/Stock.php:16
-msgid "Not available"
+#: src/Stock.php:27 templates/store-stock.php:6
+msgid "Available"
 msgstr ""
 
-#: src/Stock.php:20
+#: src/Stock.php:30 templates/store-stock.php:7
 msgid "Low stock"
 msgstr ""
 
-#: templates/store-stock.php:9
+#: src/Stock.php:33 templates/store-stock.php:8
+msgid "Not available"
+msgstr ""
+
+#: templates/store-stock.php:15
 msgid "View branch availability"
 msgstr ""
 
-#: templates/store-stock.php:16
-msgid "in showroom"
+#: templates/store-stock.php:22
+msgid "Showroom"
 msgstr ""
 
-#: templates/store-stock.php:17
-msgid "available for pick up"
+#: templates/store-stock.php:23
+msgid "Pickup"
+msgstr ""
+
+#: templates/store-stock.php:24
+msgid "Order"
 msgstr ""

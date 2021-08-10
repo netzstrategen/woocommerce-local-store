@@ -1,56 +1,55 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: woocommerce-local-store\n"
-"POT-Creation-Date: 2021-05-27 15:54+0200\n"
-"PO-Revision-Date: 2021-06-04 11:27+0200\n"
-"Last-Translator: Mauricio Urrego <mauricio@netzstrategen.com>\n"
-"Language-Team: \n"
-"Language: de_DE\n"
+"POT-Creation-Date: 2021-08-06 13:56+0200\n"
+"PO-Revision-Date: 2021-08-06 13:59+0200\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
-"X-Poedit-Basepath: .\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"Language-Team: netzstrategen\n"
+"Last-Translator: Mauricio Urrego <mauricio@netzstrategen.com>\n"
+"Language: de_DE\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: .sass-cache\n"
+"X-Poedit-SearchPathExcluded-1: node_modules\n"
 
 #: src/Product.php:17 src/Product.php:31
-msgid "Warehouse stock"
-msgstr "Lagerbestand"
-
-#: src/Product.php:20 src/Product.php:34
 msgid "Stock in showrooms"
 msgstr "Bestand in Ausstellungen"
 
-#: src/Stock.php:12
+#: src/Product.php:20 src/Product.php:34
+msgid "Warehouse stock"
+msgstr "Lagerbestand"
+
+#: src/Stock.php:27 templates/store-stock.php:6
 msgid "Available"
 msgstr "Verfügbar"
 
-#: src/Stock.php:16
-msgid "Not available"
-msgstr "Nicht verfügbar"
-
-#: src/Stock.php:20
+#: src/Stock.php:30 templates/store-stock.php:7
 msgid "Low stock"
 msgstr "Geringe Lagermenge"
 
-#: templates/store-stock.php:9
+#: src/Stock.php:33 templates/store-stock.php:8
+msgid "Not available"
+msgstr "Nicht verfügbar"
+
+#: templates/store-stock.php:15
 msgid "View branch availability"
 msgstr "Filialverfügbarkeit ansehen"
 
-#: templates/store-stock.php:16
-msgid "in showroom"
-msgstr "in der Ausstellung"
+#: templates/store-stock.php:22
+msgid "Showroom"
+msgstr "Ausstellung"
 
-#: templates/store-stock.php:17
-msgid "available for pick up"
-msgstr "Sofortmitnahme"
+#: templates/store-stock.php:23
+msgid "Pickup"
+msgstr "Mitnahme"
 
-#: templates/store-stock.php:17
-msgid "orderable"
-msgstr "Bestellung"
-
-#~ msgid "In Show Room"
-#~ msgstr "in der Ausstellung"
-
-#~ msgid "Medium stock"
-#~ msgstr "Mittlerer Lagerbestand"
+#: templates/store-stock.php:24
+msgid "Order"
+msgstr "Kauf"
