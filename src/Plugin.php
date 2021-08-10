@@ -53,9 +53,10 @@ class Plugin {
    * @implements wp_enqueue_scripts
    */
   public static function enqueueAssets() {
-    if (!is_product()) {
+    if (!is_product() || has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
       return;
     }
+
     wp_enqueue_style('woocommerce-local-store/custom', static::getBaseUrl() . '/dist/styles/main.min.css', FALSE);
     wp_enqueue_script('woocommerce-local-store/custom', static::getBaseUrl() . '/dist/scripts/main.min.js', ['jquery'], FALSE, TRUE);
   }

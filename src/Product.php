@@ -7,6 +7,8 @@ namespace Netzstrategen\WooCommerceLocalStore;
  */
 class Product {
 
+  const CATEGORY_EXCLUDED = 'Ausstellungsstücke';
+
   /**
    * Adds custom fields to WooCommerce simple products.
    *
@@ -207,6 +209,10 @@ class Product {
    * Displays the shop stock-status component on the front-end.
    */
   public static function woocommerce_product_meta_start() {
+    if (has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
+      return;
+    }
+
     global $product;
 
     $stocks = static::getStockByStore($product);
