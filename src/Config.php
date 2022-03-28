@@ -93,7 +93,7 @@ class Config {
    * @return string
    *   The config file name.
    */
-  public static function getConfigFileName() {
+  public static function getConfigFileName(): string {
     return defined('WOOCOMMERCE_LOCAL_STORE_CONFIG_FILE') ?
       WOOCOMMERCE_LOCAL_STORE_CONFIG_FILE :
       static::CONFIG_FILE;
