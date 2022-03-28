@@ -34,7 +34,7 @@ class Config {
   public static function get(?string $store_id = NULL): array {
     if (!isset(static::$cache)) {
       try {
-        $data = static::readDataFile(self::CONFIG_FILE);
+        $data = static::readDataFile(self::getConfigFileName());
         if (!static::$cache = json_decode($data, TRUE)) {
           throw new \Exception('Unable to decode the configuration.');
         }
@@ -85,6 +85,18 @@ class Config {
       throw new \Exception("Unable to read file '$path'.");
     }
     return $str;
+  }
+
+  /**
+   * Retrieves the plugin config file name.
+   *
+   * @return string
+   *   The config file name.
+   */
+  public static function getConfigFileName(): string {
+    return defined('WOOCOMMERCE_LOCAL_STORE_CONFIG_FILE') ?
+      WOOCOMMERCE_LOCAL_STORE_CONFIG_FILE :
+      static::CONFIG_FILE;
   }
 
 }
