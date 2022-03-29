@@ -1,11 +1,13 @@
 window.addEventListener('load', () => {
   document.querySelectorAll('[data-stock-table-toggle]').forEach((trigger) =>
-    trigger.addEventListener('click', () => {
+    trigger.addEventListener('click', (event) => {
       const table = document.querySelector('[data-stock-table]');
       const arrow = document.querySelector('[data-stock-arrow]');
       if (!table && !arrow) {
         return false;
       }
+
+      event.preventDefault();
 
       const elems = [trigger, table, arrow];
 
