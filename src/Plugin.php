@@ -41,7 +41,8 @@ class Plugin {
     }
 
     add_filter('woocommerce_available_variation', __NAMESPACE__ . '\Product::woocommerce_available_variation', 10, 3);
-    add_action('woocommerce_product_meta_start', __NAMESPACE__ . '\Product::woocommerce_product_meta_start');
+    // Displays the shop stock-status component on the front-end.
+    add_action('woocommerce_product_meta_end', __NAMESPACE__ . '\Product::display_store_stock_status_block');
 
     // Enqueues styles and scripts.
     add_action('wp_enqueue_scripts', __CLASS__ . '::enqueueAssets');

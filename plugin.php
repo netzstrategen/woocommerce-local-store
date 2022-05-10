@@ -3,7 +3,7 @@
 // phpcs:disable
 /*
   Plugin Name: WooCommerce Local Store
-  Version: 1.0.2
+  Version: 1.0.3
   Text Domain: woocommerce-local-store
   Description: Manages product stocks in multiple local stores.
   Author: netzstrategen

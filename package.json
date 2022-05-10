@@ -1,6 +1,6 @@
 {
   "title": "woocommerce-local-store",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Manages product stocks in multiple local stores.",
   "author": {
     "name": "netzstrategen",
