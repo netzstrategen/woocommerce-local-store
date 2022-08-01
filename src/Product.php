@@ -209,7 +209,7 @@ class Product {
    * Displays the shop stock-status component on the front-end.
    */
   public static function display_store_stock_status_block() {
-    if (self::isTermExcluded()) {
+    if (has_term(Product::CATEGORY_EXCLUDED, 'product_cat')) {
       return;
     }
 
@@ -226,17 +226,6 @@ class Product {
       'raw' => $raw,
       'stocks' => $stocks,
     ]);
-  }
-
-  /**
-   * Checks for excluded product categories.
-   *
-   * @return bool
-   *   Wether the product is assigned to any excluded category.
-   */
-  public static function isTermExcluded() {
-    $product_categories = wp_list_pluck(get_the_terms(get_the_id(), 'product_cat'), 'name');
-    return !empty(array_intersect(self::CATEGORY_EXCLUDED, $product_categories));
   }
 
 }
