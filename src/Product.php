@@ -7,7 +7,7 @@ namespace Netzstrategen\WooCommerceLocalStore;
  */
 class Product {
 
-  const CATEGORY_EXCLUDED = 'Ausstellungsstücke';
+  const CATEGORY_EXCLUDED = ['Ausstellungsstücke', 'Abverkauf'];
 
   /**
    * Adds custom fields to WooCommerce simple products.
