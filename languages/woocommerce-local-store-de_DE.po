@@ -42,14 +42,18 @@ msgstr "Nicht verfügbar"
 msgid "View branch availability"
 msgstr "Filialverfügbarkeit ansehen"
 
-#: templates/store-stock.php:22
+#: templates/store-stock.php:23
 msgid "Showroom"
 msgstr "Ausstellung"
 
-#: templates/store-stock.php:23
+#: templates/store-stock.php:24
 msgid "Pickup"
 msgstr "Mitnahme"
 
-#: templates/store-stock.php:24
+#: templates/store-stock.php:25
 msgid "Order"
 msgstr "Kauf"
+
+#: templates/store-stock.php:42
+msgid "*This product is exhibited in a different, similar variant."
+msgstr "*Dieses Produkt ist in einer anderen, ähnlichen Variante ausgestellt."

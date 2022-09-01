@@ -42,14 +42,18 @@ msgstr ""
 msgid "View branch availability"
 msgstr ""
 
-#: templates/store-stock.php:22
+#: templates/store-stock.php:23
 msgid "Showroom"
 msgstr ""
 
-#: templates/store-stock.php:23
+#: templates/store-stock.php:24
 msgid "Pickup"
 msgstr ""
 
-#: templates/store-stock.php:24
+#: templates/store-stock.php:25
 msgid "Order"
+msgstr ""
+
+#: templates/store-stock.php:42
+msgid "*This product is exhibited in a different, similar variant."
 msgstr ""

@@ -1,5 +1,5 @@
 {
-  "name": "netzstrategen/woocommerce-local-store",
+  "name": "local-plugins/woocommerce-local-store",
   "description": "Manages product stocks in multiple local stores.",
   "license": "GPL-2.0-or-later",
   "type": "wordpress-plugin",

@@ -9,6 +9,8 @@ class Product {
 
   const CATEGORY_EXCLUDED = ['Ausstellungsstücke', 'Abverkauf'];
 
+  private static $allVariationsStock;
+
   /**
    * Adds custom fields to WooCommerce simple products.
    *
@@ -191,7 +193,10 @@ class Product {
     foreach ($stocks as $name => $types) {
       $stocks[$name]['online'] = ($is_backorder_allowed || $warehouse_stock) ? 'high' : 'none';
     }
-
+    if (!isset(static::$allVariationsStock)) {
+      static::$allVariationsStock = [];
+    }
+    static::$allVariationsStock[$product_id] = $stocks;
     return $stocks;
   }
 
@@ -215,16 +220,41 @@ class Product {
 
     global $product;
 
+    $availability = [];
+    if (!empty(static::$allVariationsStock) && count(static::$allVariationsStock) > 1) {
+      foreach (reset(static::$allVariationsStock) as $location => $stocks) {
+        $availability[$location] = [];
+        foreach ($stocks as $type => $stock) {
+          if (!isset($availability[$location][$type])) {
+            $availability[$location][$type] = [];
+          }
+        }
+      }
+      foreach (static::$allVariationsStock as $product_id => $locations) {
+        foreach ($locations as $location => $stocks) {
+          foreach ($stocks as $type => $stock) {
+            if ($stock != 'none') {
+              $availability[$location][$type][] = $product_id;
+            }
+          }
+        }
+      }
+    }
+
     $stocks = static::getStockByStore($product);
     $raw = $stocks;
+
     foreach ($stocks as $name => $types) {
       foreach ($types as $type => $stock) {
         $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type], $type);
       }
     }
+
     Plugin::renderTemplate(['templates/store-stock.php'], [
       'raw' => $raw,
       'stocks' => $stocks,
+      'availability' => $availability,
+      'product_type' => $product->get_type(),
     ]);
   }
 

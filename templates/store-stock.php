@@ -15,25 +15,32 @@ $labels = [
     <span><?= __('View branch availability', Plugin::L10N); ?></span>
     <span class="arrow-ico" data-stock-arrow></span>
   </button>
-  <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" <?= wc_implode_html_attributes($labels) ?> aria-visible="false">
-    <thead>
-      <tr>
-        <th class="column-1">&nbsp;</th>
-        <th class="column-2"><?= __('Showroom', Plugin::L10N) ?></th>
-        <th class="column-3"><?= __('Pickup', Plugin::L10N) ?></th>
-        <th class="column-4"><?= __('Order', Plugin::L10N) ?></th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      foreach ($stocks as $location => $types): ?>
+  <div class="stock-table__wrapper" aria-visible="false" data-stock-table-wrapper>
+    <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" <?= wc_implode_html_attributes($labels) ?>>
+      <thead>
         <tr>
-          <th><?= $location ?></th>
-          <?php foreach ($types as $type => $stock): ?>
-            <td data-location="<?= esc_attr($location) ?>" data-type="<?= $type ?>"><?= $stock ?></td>
-          <?php endforeach; ?>
+          <th class="column-1">&nbsp;</th>
+          <th class="column-2"><?= __('Showroom', Plugin::L10N) ?></th>
+          <th class="column-3"><?= __('Pickup', Plugin::L10N) ?></th>
+          <th class="column-4"><?= __('Order', Plugin::L10N) ?></th>
         </tr>
-      <?php endforeach; ?>
-    </tbody>
-  </table>
+      </thead>
+      <tbody>
+        <?php
+        foreach ($stocks as $location => $types): ?>
+          <tr>
+            <th><?= $location ?></th>
+            <?php foreach ($types as $type => $stock): ?>
+              <td data-location="<?= esc_attr($location) ?>" data-type="<?= $type ?>" data-availability="<?= esc_attr(json_encode($availability[$location][$type])) ?>"><?= $stock ?></td>
+            <?php endforeach; ?>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+    <?php if ($product_type === 'variable') : ?>
+      <div class="stock-table__info">
+        <span><?= __('*This product is exhibited in a different, similar variant.', Plugin::L10N) ?></span>
+      </div>
+    <?php endif; ?>
+  </div>
 </div>
