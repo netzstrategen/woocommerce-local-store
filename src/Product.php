@@ -209,7 +209,7 @@ class Product {
    * Displays the shop stock-status component on the front-end.
    */
   public static function display_store_stock_status_block() {
-    if (self::is_category_excluded()) {
+    if (self::isCategoryExcluded()) {
       return;
     }
 
@@ -234,7 +234,7 @@ class Product {
    * @return bool
    *   True if the product is within a excluded category, otherwise false.
    */
-  public static function is_category_excluded():bool {
+  public static function isCategoryExcluded():bool {
     return has_term(Product::CATEGORY_EXCLUDED, 'product_cat');
   }
 
