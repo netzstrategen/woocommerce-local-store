@@ -36,9 +36,6 @@ class Plugin {
     add_action('woocommerce_process_product_meta', __NAMESPACE__ . '\Product::woocommerce_process_product_meta');
     add_action('woocommerce_save_product_variation', __NAMESPACE__ . '\Product::woocommerce_save_product_variation', 10, 2);
 
-    // GraphQL support.
-    add_action('graphql_register_types', __NAMESPACE__ . '\GraphQL::graphql_register_types');
-
     if (is_admin()) {
       return;
     }
