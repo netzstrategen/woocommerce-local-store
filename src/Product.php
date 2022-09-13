@@ -219,6 +219,7 @@ class Product {
     }
 
     global $product;
+    $store_stocks = static::getStockByStore($product);
 
     $availability = [];
     if (!empty(static::$allVariationsStock) && count(static::$allVariationsStock) > 1) {
@@ -235,24 +236,24 @@ class Product {
           foreach ($stocks as $type => $stock) {
             if ($stock != 'none') {
               $availability[$location][$type][] = $product_id;
+              $store_stocks[$location][$type] = 'high-asterisk';
             }
           }
         }
       }
     }
 
-    $stocks = static::getStockByStore($product);
-    $raw = $stocks;
+    $raw = $store_stocks;
 
-    foreach ($stocks as $name => $types) {
+    foreach ($store_stocks as $name => $types) {
       foreach ($types as $type => $stock) {
-        $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type], $type);
+        $store_stocks[$name][$type] = Stock::renderLevel($store_stocks[$name][$type], $type);
       }
     }
 
     Plugin::renderTemplate(['templates/store-stock.php'], [
       'raw' => $raw,
-      'stocks' => $stocks,
+      'stocks' => $store_stocks,
       'availability' => $availability,
       'product_type' => $product->get_type(),
     ]);

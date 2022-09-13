@@ -86,17 +86,13 @@ window.addEventListener('load', () => {
     /* global document */
     $(document)
       .on('show_variation', '.single_variation_wrap', function (event, variation) {
-        const stockTable = document.querySelector('[data-stock-show]');
         if (stockShow === false) {
           stockShow = true;
-          stockTable.classList.toggle('hide');
         }
       })
       .on('hide_variation, reset_data', function (event) {
-        const stockTable = document.querySelector('[data-stock-show]');
         if (stockShow === true) {
           stockShow = false;
-          stockTable.classList.toggle('hide');
         }
       });
   }
