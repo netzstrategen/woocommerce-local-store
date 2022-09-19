@@ -67,33 +67,17 @@ window.addEventListener('load', () => {
   /* global document */
   $(document)
     .on('show_variation', '.single_variation_wrap', function (event, variation) {
-      const $context = $(this).closest('.product-summary').find('> .product_meta');
+      let $context = $(this).closest('.product-summary').find('> .product_meta');
+      if (!$context.length) {
+        $context = $(this).closest('.product__summary').find('.product_meta');
+      }
       updateStockLevels($context, variation['stock_levels'], variation);
     })
     .on('hide_variation, reset_data', function (event) {
-      const $context = $(event.target).closest('.product-summary').find('> .product_meta');
+      let $context = $(event.target).closest('.product-summary').find('> .product_meta');
+      if (!$context.length) {
+        $context = $(event.target).closest('.product__summary').find('.product_meta');
+      }
       updateStockLevels($context, $('[data-stock-table]', $context).data('stock-table'));
     });
-}(jQuery));
-
-/* global jQuery */
-(function ($) {
-  const html = document.querySelector('html');
-  const productType = html.getAttribute('data-page-type');
-
-  if (productType === 'Product | Variable') {
-    let stockShow = true;
-    /* global document */
-    $(document)
-      .on('show_variation', '.single_variation_wrap', function (event, variation) {
-        if (stockShow === false) {
-          stockShow = true;
-        }
-      })
-      .on('hide_variation, reset_data', function (event) {
-        if (stockShow === true) {
-          stockShow = false;
-        }
-      });
-  }
 }(jQuery));

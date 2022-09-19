@@ -2,8 +2,8 @@
   display: block;
 
   .quantity,
-  .button {
-    display: none!important;
+  button.button {
+    display: none;
   }
 }
 
@@ -166,6 +166,20 @@
         height: 9px;
         border-radius: 50%;
         content: '';
+      }
+
+      &--high-asterisk:before {
+        background-color: #4d801c;
+      }
+
+      &--asterisk:before,
+      &--high-asterisk:before {
+        margin-left: 0.5em;
+      }
+
+      &--asterisk:after,
+      &--high-asterisk:after {
+        content: '*';
       }
     }
   }
