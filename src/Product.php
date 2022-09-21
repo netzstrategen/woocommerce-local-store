@@ -234,7 +234,7 @@ class Product {
       foreach (static::$allVariationsStock as $product_id => $locations) {
         foreach ($locations as $location => $stocks) {
           foreach ($stocks as $type => $stock) {
-            if ($stock != 'none') {
+            if ($stock != 'none' && $type == 'showroom') {
               $availability[$location][$type][] = $product_id;
               $store_stocks[$location][$type] = 'high-asterisk';
             }
