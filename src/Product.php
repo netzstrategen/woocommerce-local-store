@@ -229,12 +229,12 @@ class Product {
   }
 
   /**
-   * Checks whether a product in a given category shall show its stock status.
+   * Returns whether the stock status should be shown for a product based on its category.
    *
    * @return bool
    *   True if the product is within a excluded category, otherwise false.
    */
-  public static function isCategoryExcluded():bool {
+  public static function isCategoryExcluded(): bool {
     return has_term(Product::CATEGORY_EXCLUDED, 'product_cat');
   }
 

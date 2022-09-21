@@ -11,7 +11,7 @@ class GraphQL {
    * @implements graphql_register_types
    */
   public static function graphql_register_types() {
-    self::registerLocalStockStatusEnum();
+    self::registerLocalStoreStockStatusEnum();
     self::registerLocalStockObjectType();
     self::registerLocalStockField('product');
     self::registerLocalStockField('ProductVariation');
@@ -20,18 +20,17 @@ class GraphQL {
   /**
    * Registers local stock status enum.
    */
-  public static function registerLocalStockStatusEnum() {
-    $values = [
-      'HIGH' => ['value' => 'high'],
-      'LOW' => ['value' => 'low'],
-      'NONE' => ['value' => 'none'],
-    ];
+  public static function registerLocalStoreStockStatusEnum() {
 
     register_graphql_enum_type(
-    'LocalStockStatus',
+    'LocalStoreStockStatus',
     [
       'description' => __('Local stock status enumeration', Plugin::L10N),
-      'values' => $values,
+      'values' => [
+        'high' => ['value' => 'high'],
+        'low' => ['value' => 'low'],
+        'none' => ['value' => 'none'],
+      ],
     ]
     );
   }
@@ -50,15 +49,15 @@ class GraphQL {
             'description' => __('Store name', Plugin::L10N),
           ],
           'showroom' => [
-            'type' => 'LocalStockStatus',
+            'type' => 'LocalStoreStockStatus',
             'description' => __('Showroom', Plugin::L10N),
           ],
           'warehouse' => [
-            'type' => 'LocalStockStatus',
+            'type' => 'LocalStoreStockStatus',
             'description' => __('Warehouse', Plugin::L10N),
           ],
           'online' => [
-            'type' => 'LocalStockStatus',
+            'type' => 'LocalStoreStockStatus',
             'description' => __('Online', Plugin::L10N),
           ],
         ],
@@ -73,35 +72,31 @@ class GraphQL {
    *   The type name where to register the field.
    */
   public static function registerLocalStockField(string $type_name) {
-    register_graphql_field(
-      $type_name,
-      'localStock',
-      [
-        'description' => __('Local stocks availability', Plugin::L10N),
-        'type' => ['list_of' => 'localStock'],
-        'resolve' => function ($source) {
-          $product = $source->as_WC_Data();
-          $localStock = [];
+    register_graphql_field($type_name, 'localStock', [
+      'description' => __('Local stocks availability', Plugin::L10N),
+      'type' => ['list_of' => 'localStock'],
+      'resolve' => function ($source) {
+        $product = $source->as_WC_Data();
+        $local_stock = [];
 
-          if (Product::isCategoryExcluded()) {
-            return $localStock;
-          }
-
-          if ($local_stock_raw_data = Product::getStockByStore($product)) {
-            foreach ($local_stock_raw_data as $key => $value) {
-              $localStock[] = [
-                'storeName' => $key ?? '',
-                'showroom' => $value['showroom'] ?? '',
-                'warehouse' => $value['warehouse'] ?? '',
-                'online' => $value['online'] ?? '',
-              ];
-            }
-          }
-
-          return $localStock;
+        if (Product::isCategoryExcluded()) {
+          return $local_stock;
         }
-      ]
-    );
+
+        if ($local_stock_raw_data = Product::getStockByStore($product)) {
+          foreach ($local_stock_raw_data as $key => $value) {
+            $local_stock[] = [
+              'storeName' => $key ?? '',
+              'showroom' => $value['showroom'] ?? '',
+              'warehouse' => $value['warehouse'] ?? '',
+              'online' => $value['online'] ?? '',
+            ];
+          }
+        }
+
+        return $local_stock;
+      }
+    ]);
   }
 
 }
