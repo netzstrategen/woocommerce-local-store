@@ -13,7 +13,7 @@ class GraphQL {
   public static function graphql_register_types() {
     self::registerLocalStoreStockStatusEnum();
     self::registerLocalStockObjectType();
-    self::registerLocalStockField('product');
+    self::registerLocalStockField('Product');
     self::registerLocalStockField('ProductVariation');
   }
 
@@ -44,7 +44,7 @@ class GraphQL {
       [
         'description' => __('Local stock', Plugin::L10N),
         'fields' => [
-          'storeName' => [
+          'label' => [
             'type' => 'String',
             'description' => __('Store name', Plugin::L10N),
           ],
@@ -86,7 +86,7 @@ class GraphQL {
         if ($local_stock_raw_data = Product::getStockByStore($product)) {
           foreach ($local_stock_raw_data as $key => $value) {
             $local_stock[] = [
-              'storeName' => $key ?? '',
+              'label' => $key ?? '',
               'showroom' => $value['showroom'] ?? '',
               'warehouse' => $value['warehouse'] ?? '',
               'online' => $value['online'] ?? '',
