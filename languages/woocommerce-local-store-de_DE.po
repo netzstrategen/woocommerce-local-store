@@ -56,4 +56,4 @@ msgstr "Kauf"
 
 #: templates/store-stock.php:42
 msgid "*This product is exhibited in a different, similar variant."
-msgstr "*Dieses Produkt ist in einer anderen, ähnlichen Variante ausgestellt."
+msgstr "*Dieses Produkt ist eventuell in einer anderen, ähnlichen Variante ausgestellt."
