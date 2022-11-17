@@ -9,6 +9,11 @@ class Product {
 
   const CATEGORY_EXCLUDED = ['Ausstellungsstücke', 'Abverkauf'];
 
+  /**
+   * Stores the stock of the products across all variations available.
+   *
+   * @var array
+   */
   private static $allVariationsStock;
 
   /**
@@ -221,25 +226,11 @@ class Product {
     global $product;
     $store_stocks = static::getStockByStore($product);
 
-    $availability = [];
+    $availability = self::buildInitialAvailabilityArray(static::$allVariationsStock);
     if (!empty(static::$allVariationsStock) && count(static::$allVariationsStock) > 1) {
-      foreach (reset(static::$allVariationsStock) as $location => $stocks) {
-        $availability[$location] = [];
-        foreach ($stocks as $type => $stock) {
-          if (!isset($availability[$location][$type])) {
-            $availability[$location][$type] = [];
-          }
-        }
-      }
       foreach (static::$allVariationsStock as $product_id => $locations) {
-        foreach ($locations as $location => $stocks) {
-          foreach ($stocks as $type => $stock) {
-            if ($stock != 'none' && $type == 'showroom') {
-              $availability[$location][$type][] = $product_id;
-              $store_stocks[$location][$type] = 'high-asterisk';
-            }
-          }
-        }
+        $availability = self::getAvailabilityWithProductID($availability, $product_id, $locations);
+        $store_stocks = self::getStoreStocksWithUpdatedAvailability($store_stocks, $product_id, $locations);
       }
     }
 
@@ -257,6 +248,69 @@ class Product {
       'availability' => $availability,
       'product_type' => $product->get_type(),
     ]);
+  }
+
+  /**
+   * Returns the initial availability array structure.
+   *
+   * @param array $allVariationsStock
+   *   Stock of all products variations.
+   */
+  public static function buildInitialAvailabilityArray(array $allVariationsStock): array {
+    $availability = [];
+    if (!empty($allVariationsStock) && count($allVariationsStock) > 1) {
+      foreach (reset($allVariationsStock) as $location => $stocks) {
+        $availability[$location] = [];
+        foreach ($stocks as $type => $stock) {
+          if (!isset($availability[$location][$type])) {
+            $availability[$location][$type] = [];
+          }
+        }
+      }
+    }
+    return $availability;
+  }
+
+  /**
+   * Updates the availability with the product ID based on location and stock type.
+   *
+   * @param array $availability
+   *   The avaiability array for all locations.
+   * @param int $product_id
+   *   The ID of the given product.
+   * @param array $locations
+   *   The locations array for the product_id.
+   */
+  public static function getAvailabilityWithProductID(array &$availability, int $product_id, array $locations) {
+    foreach ($locations as $location => $stocks) {
+      foreach ($stocks as $type => $stock) {
+        if ($stock != 'none' && $type == 'showroom') {
+          $availability[$location][$type][] = $product_id;
+        }
+      }
+    }
+
+    return $availability;
+  }
+
+  /**
+   * Makes variation available in showroom if stock is available in showroom.
+   *
+   * @param array $store_stocks
+   *   The avaiability array for all locations.
+   * @param array $locations
+   *   The locations array for the product_id.
+   */
+  public static function getStoreStocksWithUpdatedAvailability(array &$store_stocks, array $locations) {
+    foreach ($locations as $location => $stocks) {
+      foreach ($stocks as $type => $stock) {
+        if ($stock != 'none' && $type == 'showroom') {
+          $store_stocks[$location][$type] = 'high-asterisk';
+        }
+      }
+    }
+
+    return $store_stocks;
   }
 
 }
