@@ -55,5 +55,5 @@ msgid "Order"
 msgstr ""
 
 #: templates/store-stock.php:42
-msgid "*This product is exhibited in a different, similar variant."
+msgid "This product is exhibited in a different, similar variant."
 msgstr ""

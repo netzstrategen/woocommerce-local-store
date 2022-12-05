@@ -37,18 +37,20 @@ window.addEventListener('load', () => {
    *
    * @param {jQuery} $context
    * @param {array} stockLevels
+   * @param {array} availability
    * @param {Object} variation
    */
-  function updateStockLevels($context, stockLevels, variation = null) {
+  function updateStockLevels($context, stockLevels, availability, variation = null) {
     const $labels = $('[data-stock-table]');
     $.each(stockLevels, (name, types) => {
       $.each(types, (type, level) => {
-        const availability = JSON.parse($('[data-location="' + name + '"][data-type="' + type + '"]')
-          .attr('data-availability'));
+        const currentLocationAvailability = availability &&
+          availability[name] &&
+          availability[name][type] ? availability[name][type] : [];
         let existsInStock = false;
 
-        if (availability.length && variation) {
-          existsInStock = availability.indexOf(variation.variation_id) === -1;
+        if (currentLocationAvailability.length && variation) {
+          existsInStock = currentLocationAvailability.indexOf(variation.variation_id) === -1;
         }
 
         if (existsInStock) {
@@ -71,13 +73,13 @@ window.addEventListener('load', () => {
       if (!$context.length) {
         $context = $(this).closest('.product__summary').find('.product_meta');
       }
-      updateStockLevels($context, variation['stock_levels'], variation);
+      updateStockLevels($context, variation['stock_levels'], variation['availability'], variation);
     })
     .on('hide_variation, reset_data', function (event) {
       let $context = $(event.target).closest('.product-summary').find('> .product_meta');
       if (!$context.length) {
         $context = $(event.target).closest('.product__summary').find('.product_meta');
       }
-      updateStockLevels($context, $('[data-stock-table]', $context).data('stock-table'));
+      updateStockLevels($context, $('[data-stock-table]', $context).data('stock-table'), '');
     });
 }(jQuery));

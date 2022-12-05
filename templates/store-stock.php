@@ -31,7 +31,7 @@ $labels = [
           <tr>
             <th><?= $location ?></th>
             <?php foreach ($types as $type => $stock): ?>
-              <td data-location="<?= esc_attr($location) ?>" data-type="<?= $type ?>" data-availability="<?= esc_attr(json_encode($availability[$location][$type])) ?>"><?= $stock ?></td>
+              <td data-location="<?= esc_attr($location) ?>" data-type="<?= $type ?>"><?= $stock ?></td>
             <?php endforeach; ?>
           </tr>
         <?php endforeach; ?>
@@ -39,7 +39,7 @@ $labels = [
     </table>
     <?php if ($product_type === 'variable') : ?>
       <div class="stock-table__info">
-        <span><?= __('*This product is exhibited in a different, similar variant.', Plugin::L10N) ?></span>
+        <span><?= __('This product is exhibited in a different, similar variant.', Plugin::L10N) ?></span>
       </div>
     <?php endif; ?>
   </div>

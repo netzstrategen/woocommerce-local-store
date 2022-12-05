@@ -10,11 +10,15 @@ class Product {
   const CATEGORY_EXCLUDED = ['Ausstellungsstücke', 'Abverkauf'];
 
   /**
-   * Stores the stock of the products across all variations available.
+   * Stock of the current product for each variation by stock type and location.
+   *
+   * Used to determine for which location and stock type to show an asterisk.
+   *
+   * Is populated in the getStockByStore() method for each variation.
    *
    * @var array
    */
-  private static $allVariationsStock;
+  private static $allVariationsStock = [];
 
   /**
    * Adds custom fields to WooCommerce simple products.
@@ -198,9 +202,6 @@ class Product {
     foreach ($stocks as $name => $types) {
       $stocks[$name]['online'] = ($is_backorder_allowed || $warehouse_stock) ? 'high' : 'none';
     }
-    if (!isset(static::$allVariationsStock)) {
-      static::$allVariationsStock = [];
-    }
     static::$allVariationsStock[$product_id] = $stocks;
     return $stocks;
   }
@@ -212,7 +213,23 @@ class Product {
    */
   public static function woocommerce_available_variation(array $variation_data, \WC_Product $parent, \WC_Product $variation): array {
     $variation_data['stock_levels'] = static::getStockByStore($variation);
+    $variation_data['availability'] = static::getProductAvailability();
     return $variation_data;
+  }
+
+  /**
+   * Returns stock availability for a the product variations.
+   *
+   * @return array
+   */
+  public static function getProductAvailability(): array {
+    $availability = self::buildInitialAvailabilityArray(static::$allVariationsStock);
+    if (!empty(static::$allVariationsStock) && count(static::$allVariationsStock) > 1) {
+      foreach (static::$allVariationsStock as $product_id => $locations) {
+        $availability = self::getAvailabilityWithProductID($availability, $product_id, $locations);
+      }
+    }
+    return $availability;
   }
 
   /**
@@ -226,14 +243,6 @@ class Product {
     global $product;
     $store_stocks = static::getStockByStore($product);
 
-    $availability = self::buildInitialAvailabilityArray(static::$allVariationsStock);
-    if (!empty(static::$allVariationsStock) && count(static::$allVariationsStock) > 1) {
-      foreach (static::$allVariationsStock as $product_id => $locations) {
-        $availability = self::getAvailabilityWithProductID($availability, $product_id, $locations);
-        $store_stocks = self::getStoreStocksWithUpdatedAvailability($store_stocks, $product_id, $locations);
-      }
-    }
-
     $raw = $store_stocks;
 
     foreach ($store_stocks as $name => $types) {
@@ -245,7 +254,6 @@ class Product {
     Plugin::renderTemplate(['templates/store-stock.php'], [
       'raw' => $raw,
       'stocks' => $store_stocks,
-      'availability' => $availability,
       'product_type' => $product->get_type(),
     ]);
   }
@@ -291,26 +299,6 @@ class Product {
     }
 
     return $availability;
-  }
-
-  /**
-   * Makes variation available in showroom if stock is available in showroom.
-   *
-   * @param array $store_stocks
-   *   The avaiability array for all locations.
-   * @param array $locations
-   *   The locations array for the product_id.
-   */
-  public static function getStoreStocksWithUpdatedAvailability(array &$store_stocks, array $locations) {
-    foreach ($locations as $location => $stocks) {
-      foreach ($stocks as $type => $stock) {
-        if ($stock != 'none' && $type == 'showroom') {
-          $store_stocks[$location][$type] = 'high-asterisk';
-        }
-      }
-    }
-
-    return $store_stocks;
   }
 
   /**
