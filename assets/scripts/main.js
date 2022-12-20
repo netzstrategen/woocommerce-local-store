@@ -37,25 +37,30 @@ window.addEventListener('load', () => {
    *
    * @param {jQuery} $context
    * @param {array} stockLevels
-   * @param {array} availability
    * @param {Object} variation
    */
-  function updateStockLevels($context, stockLevels, availability, variation = null) {
+  function updateStockLevels($context, stockLevels, variation = null) {
     const $labels = $('[data-stock-table]');
+    const allVariationsStock = JSON.parse($('[data-all-variations-stock]').attr('data-all-variations-stock'));
+
     $.each(stockLevels, (name, types) => {
       $.each(types, (type, level) => {
-        const currentLocationAvailability = availability &&
-          availability[name] &&
-          availability[name][type] ? availability[name][type] : [];
-        let existsInStock = false;
-
-        if (currentLocationAvailability.length && variation) {
-          existsInStock = currentLocationAvailability.indexOf(variation.variation_id) === -1;
-        }
-
-        if (existsInStock) {
-          level = 'high';
-          level += ' stock-level--asterisk';
+        if (variation &&
+          allVariationsStock &&
+          allVariationsStock[variation.variation_id][name][type] != 'high' &&
+          type == 'showroom') {
+          $.each(allVariationsStock, (variationId, vStockLevel) => {
+            $.each(vStockLevel, (vName, vTypes) => {
+              $.each(vTypes, (vType, vLevel) => {
+                if (allVariationsStock[variationId][vName][vType] == 'high' &&
+                  vName == name &&
+                  vType == 'showroom') {
+                  level = 'high';
+                  level += ' stock-level--asterisk';
+                }
+              });
+            });
+          });
         }
 
         $('[data-location="' + name + '"][data-type="' + type + '"] > span')
@@ -73,7 +78,7 @@ window.addEventListener('load', () => {
       if (!$context.length) {
         $context = $(this).closest('.product__summary').find('.product_meta');
       }
-      updateStockLevels($context, variation['stock_levels'], variation['availability'], variation);
+      updateStockLevels($context, variation['stock_levels'], variation);
     })
     .on('hide_variation, reset_data', function (event) {
       let $context = $(event.target).closest('.product-summary').find('> .product_meta');

@@ -213,23 +213,8 @@ class Product {
    */
   public static function woocommerce_available_variation(array $variation_data, \WC_Product $parent, \WC_Product $variation): array {
     $variation_data['stock_levels'] = static::getStockByStore($variation);
-    $variation_data['availability'] = static::getProductAvailability();
-    return $variation_data;
-  }
 
-  /**
-   * Returns stock availability for a the product variations.
-   *
-   * @return array
-   */
-  public static function getProductAvailability(): array {
-    $availability = self::buildInitialAvailabilityArray(static::$allVariationsStock);
-    if (!empty(static::$allVariationsStock) && count(static::$allVariationsStock) > 1) {
-      foreach (static::$allVariationsStock as $product_id => $locations) {
-        $availability = self::getAvailabilityWithProductID($availability, $product_id, $locations);
-      }
-    }
-    return $availability;
+    return $variation_data;
   }
 
   /**
@@ -241,64 +226,22 @@ class Product {
     }
 
     global $product;
-    $store_stocks = static::getStockByStore($product);
+    $stocks = static::getStockByStore($product);
 
-    $raw = $store_stocks;
+    $raw = $stocks;
 
-    foreach ($store_stocks as $name => $types) {
+    foreach ($stocks as $name => $types) {
       foreach ($types as $type => $stock) {
-        $store_stocks[$name][$type] = Stock::renderLevel($store_stocks[$name][$type], $type);
+        $stocks[$name][$type] = Stock::renderLevel($stocks[$name][$type], $type);
       }
     }
 
     Plugin::renderTemplate(['templates/store-stock.php'], [
       'raw' => $raw,
-      'stocks' => $store_stocks,
+      'stocks' => $stocks,
+      'all_variations_stocks' => static::$allVariationsStock,
       'product_type' => $product->get_type(),
     ]);
-  }
-
-  /**
-   * Returns the initial availability array structure.
-   *
-   * @param array $allVariationsStock
-   *   Stock of all products variations.
-   */
-  public static function buildInitialAvailabilityArray(array $allVariationsStock): array {
-    $availability = [];
-    if (!empty($allVariationsStock) && count($allVariationsStock) > 1) {
-      foreach (reset($allVariationsStock) as $location => $stocks) {
-        $availability[$location] = [];
-        foreach ($stocks as $type => $stock) {
-          if (!isset($availability[$location][$type])) {
-            $availability[$location][$type] = [];
-          }
-        }
-      }
-    }
-    return $availability;
-  }
-
-  /**
-   * Updates the availability with the product ID based on location and stock type.
-   *
-   * @param array $availability
-   *   The avaiability array for all locations.
-   * @param int $product_id
-   *   The ID of the given product.
-   * @param array $locations
-   *   The locations array for the product_id.
-   */
-  public static function getAvailabilityWithProductID(array &$availability, int $product_id, array $locations) {
-    foreach ($locations as $location => $stocks) {
-      foreach ($stocks as $type => $stock) {
-        if ($stock != 'none' && $type == 'showroom') {
-          $availability[$location][$type][] = $product_id;
-        }
-      }
-    }
-
-    return $availability;
   }
 
   /**

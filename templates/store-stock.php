@@ -16,7 +16,7 @@ $labels = [
     <span class="arrow-ico" data-stock-arrow></span>
   </button>
   <div class="stock-table__wrapper" aria-visible="false" data-stock-table-wrapper>
-    <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" <?= wc_implode_html_attributes($labels) ?>>
+    <table class="stock-table__table" data-stock-table="<?= esc_attr(json_encode($raw)) ?>" <?= wc_implode_html_attributes($labels) ?> data-all-variations-stock="<?= esc_attr(json_encode($all_variations_stocks)) ?>">
       <thead>
         <tr>
           <th class="column-1">&nbsp;</th>

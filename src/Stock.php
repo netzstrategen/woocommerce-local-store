@@ -29,9 +29,6 @@ class Stock {
     elseif ($stock_level === 'low') {
       $text = __('Low stock', Plugin::L10N);
     }
-    elseif ($stock_level === 'high-asterisk') {
-      $text = __('Low stock', Plugin::L10N);
-    }
     else {
       $text = __('Not available', Plugin::L10N);
     }
